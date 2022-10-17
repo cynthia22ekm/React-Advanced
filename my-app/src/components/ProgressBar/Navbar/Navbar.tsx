@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export type NavbarProps = {
   linkNames: { linkName: string; linkPath: string }[];
-  buttonsAvailable: boolean;
+  searchable: boolean;
 };
 
 const StyledNavbar = styled.div`
@@ -11,6 +11,8 @@ const StyledNavbar = styled.div`
   height: 70px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  box-size: border-box;
 `;
 
 const StyledLink = styled.a`
@@ -18,13 +20,27 @@ const StyledLink = styled.a`
   padding: 5px;
 `;
 
-const Navbar: React.FC<NavbarProps> = ({ linkNames, buttonsAvailable }) => {
+const LeftContainer = styled.div``;
+
+const RightContainer = styled.div`
+  padding: 5px;
+`;
+
+const Navbar: React.FC<NavbarProps> = ({ linkNames, searchable }) => {
   return (
     <div>
       <StyledNavbar>
-        {linkNames.map((link, key) => (
-          <StyledLink href={link.linkPath}>{link.linkName}</StyledLink>
-        ))}
+        <LeftContainer>
+          {linkNames.map((link, key) => (
+            <StyledLink href={link.linkPath}>{link.linkName}</StyledLink>
+          ))}
+        </LeftContainer>
+        {searchable && (
+          <RightContainer>
+            <input type="text" placeholder="Search..." />
+            <button>Search</button>
+          </RightContainer>
+        )}
       </StyledNavbar>
     </div>
   );

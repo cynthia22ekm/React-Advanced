@@ -9,7 +9,7 @@ const Home: React.FC = () => {
         { linkName: "Store", linkPath: "/store" },
         { linkName: "About", linkPath: "/about" },
       ]}
-      buttonsAvailable={false}
+      searchable={true}
     />
   );
 };
