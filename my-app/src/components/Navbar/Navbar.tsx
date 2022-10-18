@@ -44,7 +44,9 @@ const ItemCount = styled.div`
   margin-top: 15px;
   height: 20px;
   width: 15px;
-  text-align: center;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
   padding: 10px;
 `;
 
