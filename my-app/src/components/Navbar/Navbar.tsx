@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ShoppingCartImage } from "./index";
 
 export type NavbarProps = {
   linkNames: { linkName: string; linkPath: string }[];
@@ -12,7 +13,6 @@ const StyledNavbar = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-size: border-box;
 `;
 
 const StyledLink = styled.a`
@@ -24,6 +24,28 @@ const LeftContainer = styled.div``;
 
 const RightContainer = styled.div`
   padding: 5px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ShoppingCartSection = styled.div`
+  margin-right: 10px;
+  display: flex;
+`;
+
+const ShoppingCartButton = styled.button`
+  border-radius: 50%;
+`;
+
+const ItemCount = styled.div`
+  border-radius: 50%;
+  background: red;
+  margin-left: -5px;
+  margin-top: 15px;
+  height: 20px;
+  width: 15px;
+  text-align: center;
+  padding: 10px;
 `;
 
 const Navbar: React.FC<NavbarProps> = ({ linkNames, searchable }) => {
@@ -37,6 +59,12 @@ const Navbar: React.FC<NavbarProps> = ({ linkNames, searchable }) => {
         </LeftContainer>
         {searchable && (
           <RightContainer>
+            <ShoppingCartSection>
+              <ShoppingCartButton>
+                <ShoppingCartImage />
+              </ShoppingCartButton>
+              <ItemCount>3</ItemCount>
+            </ShoppingCartSection>
             <input type="text" placeholder="Search..." />
             <button>Search</button>
           </RightContainer>
