@@ -1,10 +1,13 @@
-import ProductsTable from "../components/Table/ProductsTable";
-import { useGetProductsQuery } from "../API/api";
+
+import StoreItem from "../components/StoreItem/StoreItem";
+
 
 const Store: React.FC = () => {
-  const { data: products, isFetching } = useGetProductsQuery();
-
-  return <ProductsTable products={products ? products.data : []} />;
+  return (
+    <div>
+      <StoreItem></StoreItem>
+    </div>
+  );
 };
 
 export default Store;
