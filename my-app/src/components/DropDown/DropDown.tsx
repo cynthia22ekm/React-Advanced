@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import Icon from "../Icon/Icon";
 import DownArrow from "../../imgs/down-arrow.svg";
-import { useState } from "react";
+import { ItemCategory } from "../../Data/DataType";
 
 export type DropDownProps = {
-  options: string[];
+  options: ItemCategory[];
   label: string;
   isDropDownOpen: boolean;
   onClick: () => void;
-  onSelect: (category: string) => void;
+  onSelect: (category: ItemCategory) => void;
 };
 
 const StyledButton = styled.button`
