@@ -1,14 +1,14 @@
-import { Products } from "../API/api";
 import banana from "../imgs/banana.jpg";
 import book from "../imgs/book.jpg";
 import computer from "../imgs/computer.jpg";
+import { Products } from "./DataType";
 
 export const data: Products[] = [
   {
     id: 1,
-    title: "Mens Casual Premium Slim Fit T-Shirts ",
-    price: 22.3,
-    category: "men's clothing",
+    title: "Banana",
+    price: 1.3,
+    category: "Food",
     description:
       "Your perfect pack for everyday use and walks in th…to 15 inches) in the padded sleeve, your everyday",
     image: banana,
@@ -16,9 +16,9 @@ export const data: Products[] = [
   },
   {
     id: 2,
-    title: "Womens Casual Premium Slim Fit T-Shirts ",
+    title: "Book",
     price: 22.3,
-    category: "women's clothing",
+    category: "Books",
     description:
       "Your perfect pack for everyday use and walks in th…to 15 inches) in the padded sleeve, your everyday",
     image: book,
@@ -26,9 +26,9 @@ export const data: Products[] = [
   },
   {
     id: 3,
-    title: "Mens Casual Premium Slim Fit T-Shirts ",
-    price: 22.3,
-    category: "men's clothing",
+    title: "Computer",
+    price: 2200.3,
+    category: "Electronics",
     description:
       "Your perfect pack for everyday use and walks in th…to 15 inches) in the padded sleeve, your everyday",
     image: computer,
