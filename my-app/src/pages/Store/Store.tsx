@@ -1,6 +1,4 @@
-
-import StoreItem from "../components/StoreItem/StoreItem";
-
+import StoreItem from "./StoreItem/StoreItem";
 
 const Store: React.FC = () => {
   return (

@@ -1,8 +1,8 @@
-import { useCallback, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
-import { data } from "../../Data/data";
-import { Products } from "../../Data/DataType";
-import Popup from "../Popup/Popup";
+import { data } from "../../../Data/data";
+import { Products } from "../../../Data/DataType";
+import Popup from "../../../components/Popup/Popup";
 
 const StyledImage = styled.img`
   width: 300px;
@@ -42,7 +42,9 @@ const StoreItem: React.FC = () => {
     setModalOpen(false);
   }, [setModalOpen]);
 
-  const savePopupHandler = useCallback(() => {}, []);
+  const formSubmitHandler = useCallback(() => {
+    console.log("form");
+  }, []);
 
   const deleteItemHandler = useCallback(() => {}, []);
 
@@ -67,7 +69,7 @@ const StoreItem: React.FC = () => {
           imageCategory={itemView.category}
           imageDescription={itemView.description}
           onClose={closePopupHandler}
-          onSubmit={savePopupHandler}
+          onSubmit={formSubmitHandler}
           onDelete={deleteItemHandler}
         ></Popup>
       )}
