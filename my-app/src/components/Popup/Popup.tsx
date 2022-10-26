@@ -1,7 +1,8 @@
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { ItemCategory } from "../../Data/DataType";
 import DropDown from "../DropDown/DropDown";
+import TextInput from "../TextInput/TextInput";
 
 export type PopupProps = {
   imageURL: string;
@@ -42,15 +43,6 @@ const StyledImage = styled.img`
   padding: 10px;
   margin-left: 20px;
   margin-top: 20px;
-`;
-const StyledTitle = styled.input`
-  background: lightgrey;
-  width: 300px;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  font-size: 13px;
-  border: none;
 `;
 
 const StyledDescription = styled.div`
@@ -118,6 +110,7 @@ const Popup: React.FC<PopupProps> = ({
 }) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
   const [label, setLabel] = useState("Select Category...");
+  const [title, setTitle] = useState(imageTitle);
 
   const dropDownContainerHandler = useCallback(() => {
     console.log(isDropDownOpen);
@@ -133,13 +126,20 @@ const Popup: React.FC<PopupProps> = ({
     [setLabel, setDropDownOpen]
   );
 
+  const getInputTextHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setTitle(event.target.value);
+    },
+    [setTitle]
+  );
+
   return (
     <StyledPopup>
       <FullContent>
         <PopupBody>
           <StyledImage src={imageURL} alt="image" />
           <ImageContent>
-            <StyledTitle type="text" value={imageTitle} />
+            <TextInput value={title} onChange={getInputTextHandler} />
             <DropDown
               label={label}
               options={optionsValue}
