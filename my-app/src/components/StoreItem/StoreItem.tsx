@@ -12,8 +12,15 @@ const StyledImage = styled.img`
 const StoreItem: React.FC = () => {
   const [actualData, setData] = useState<Products[]>(data);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [imageURL, setImageURL] = useState("");
-  const [imageDesc, setImageDesc] = useState("");
+  const [itemView, setItemView] = useState<Products>({
+    id: 0,
+    title: "",
+    price: 0,
+    category: "Food",
+    description: "",
+    image: "",
+    rating: { rate: 0, count: 0 },
+  });
 
   const deleteProductHandler = useCallback(
     (product: Products) => {
@@ -23,10 +30,9 @@ const StoreItem: React.FC = () => {
   );
 
   const openProductView = useCallback(
-    (image: string, description: string) => {
+    (item: Products) => {
       setModalOpen(true);
-      setImageURL(image);
-      setImageDesc(description);
+      setItemView(item);
       document.body.style.overflow = "auto";
     },
     [setModalOpen]
@@ -36,6 +42,10 @@ const StoreItem: React.FC = () => {
     setModalOpen(false);
   }, [setModalOpen]);
 
+  const savePopupHandler = useCallback(() => {}, []);
+
+  const deleteItemHandler = useCallback(() => {}, []);
+
   return (
     <div>
       {actualData.map((item, key) => (
@@ -43,7 +53,7 @@ const StoreItem: React.FC = () => {
           <StyledImage
             key={key}
             src={item.image}
-            onClick={() => openProductView(item.image, item.description)}
+            onClick={() => openProductView(item)}
           />
           <button key={key} onClick={() => deleteProductHandler(item)}>
             Delete Product
@@ -52,9 +62,13 @@ const StoreItem: React.FC = () => {
       ))}
       {isModalOpen && (
         <Popup
-          imageURL={imageURL}
-          imageDescription={imageDesc}
+          imageURL={itemView.image}
+          imageTitle={itemView.title}
+          imageCategory={itemView.category}
+          imageDescription={itemView.description}
           onClose={closePopupHandler}
+          onSubmit={savePopupHandler}
+          onDelete={deleteItemHandler}
         ></Popup>
       )}
     </div>
