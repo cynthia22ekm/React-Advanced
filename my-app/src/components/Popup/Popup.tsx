@@ -1,10 +1,18 @@
 import styled from "styled-components";
+import { ItemCategory } from "../../Data/DataType";
+import DropDown from "../DropDown/DropDown";
 
 export type PopupProps = {
   imageURL: string;
+  imageTitle: string;
+  imageCategory: ItemCategory;
   imageDescription: string;
   onClose: () => void;
+  onSubmit: () => void;
+  onDelete: () => void;
 };
+
+let optionsValue = ["Food", "Books", "Clothing", "Electronics", "Home"];
 
 const StyledPopup = styled.div`
   z-index: 999;
@@ -18,11 +26,11 @@ const StyledPopup = styled.div`
   align-items: center;
 `;
 
-const Content = styled.div`
+const FullContent = styled.div`
   z-index: 999;
-  display: flex;
-  width: 500px;
-  height: 200px;
+  display: block;
+  width: 550px;
+  height: 350px;
   background: white;
   margin-left: 400px;
 `;
@@ -34,29 +42,100 @@ const StyledImage = styled.img`
   margin-left: 20px;
   margin-top: 20px;
 `;
-const StyledDiv = styled.div`
-  margin-left: 100px;
-  margin-top: 20px;
-  width: 200px;
+const StyledTitle = styled.input`
+  background: lightgrey;
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  border: none;
+`;
+
+const StyledDescription = styled.div`
+  background: lightgrey;
+  width: 300px;
+  height: 150px;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 13px;
 `;
 
 const StyledButton = styled.button`
   margin-left: 10px;
   margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  width: 70px;
+  font-size: 13px;
+`;
+
+const StyledSaveButton = styled.button`
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  width: 70px;
+  background: blue;
+  font-size: 13px;
+`;
+
+const ImageContent = styled.div`
+  padding: 20px;
+  display: block;
+`;
+
+const PopupBody = styled.div`
+  display: flex;
+`;
+
+const PopupFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LeftFooter = styled.div`
+  margin-left: 50px;
+`;
+
+const RightFooter = styled.div`
+  display: flex;
+  margin-right: 55px;
 `;
 
 const Popup: React.FC<PopupProps> = ({
   imageURL,
+  imageTitle,
+  imageCategory,
   imageDescription,
   onClose,
+  onSubmit,
+  onDelete,
 }) => {
   return (
     <StyledPopup>
-      <Content>
-        <StyledImage src={imageURL} alt="image" />
-        <StyledDiv>{imageDescription}</StyledDiv>
-      </Content>
-      <StyledButton onClick={onClose}>Close</StyledButton>
+      <FullContent>
+        <PopupBody>
+          <StyledImage src={imageURL} alt="image" />
+          <ImageContent>
+            <StyledTitle type="text" value={imageTitle} />
+            <DropDown label="Select Category..." options={optionsValue} />
+            <StyledDescription>{imageDescription}</StyledDescription>
+          </ImageContent>
+        </PopupBody>
+        <PopupFooter>
+          <LeftFooter>
+            <StyledButton onClick={onDelete}>Delete</StyledButton>
+          </LeftFooter>
+          <RightFooter>
+            <StyledButton onClick={onClose}>Cancel</StyledButton>
+            <StyledSaveButton onClick={onSubmit}>Save</StyledSaveButton>
+          </RightFooter>
+        </PopupFooter>
+      </FullContent>
     </StyledPopup>
   );
 };
