@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { ItemCategory } from "../../Data/DataType";
 import DropDown from "../DropDown/DropDown";
@@ -115,6 +116,23 @@ const Popup: React.FC<PopupProps> = ({
   onSubmit,
   onDelete,
 }) => {
+  const [isDropDownOpen, setDropDownOpen] = useState(false);
+  const [label, setLabel] = useState("Select Category...");
+
+  const dropDownContainerHandler = useCallback(() => {
+    console.log(isDropDownOpen);
+    isDropDownOpen && setDropDownOpen(false);
+    !isDropDownOpen && setDropDownOpen(true);
+  }, [setDropDownOpen, isDropDownOpen]);
+
+  const selectDropDownHandler = useCallback(
+    (category: string) => {
+      setLabel(category);
+      setDropDownOpen(false);
+    },
+    [setLabel, setDropDownOpen]
+  );
+
   return (
     <StyledPopup>
       <FullContent>
@@ -122,7 +140,13 @@ const Popup: React.FC<PopupProps> = ({
           <StyledImage src={imageURL} alt="image" />
           <ImageContent>
             <StyledTitle type="text" value={imageTitle} />
-            <DropDown label="Select Category..." options={optionsValue} />
+            <DropDown
+              label={label}
+              options={optionsValue}
+              isDropDownOpen={isDropDownOpen}
+              onClick={dropDownContainerHandler}
+              onSelect={selectDropDownHandler}
+            />
             <StyledDescription>{imageDescription}</StyledDescription>
           </ImageContent>
         </PopupBody>
