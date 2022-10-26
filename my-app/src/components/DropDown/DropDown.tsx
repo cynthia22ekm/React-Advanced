@@ -41,6 +41,7 @@ const DropDownItem = styled.div`
   padding: 5px;
   font-size: 13px;
   color: white;
+  cursor: pointer;
 `;
 
 const DropDown: React.FC<DropDownProps> = ({
