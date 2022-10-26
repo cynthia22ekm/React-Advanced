@@ -1,7 +1,8 @@
-import { ChangeEvent, useCallback, useState } from "react";
+import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { ItemCategory } from "../../Data/DataType";
 import DropDown from "../DropDown/DropDown";
+import TextArea from "../TextArea/TextArea";
 import TextInput from "../TextInput/TextInput";
 
 export type PopupProps = {
@@ -14,7 +15,13 @@ export type PopupProps = {
   onDelete: () => void;
 };
 
-let optionsValue = ["Food", "Books", "Clothing", "Electronics", "Home"];
+let optionsValue: ItemCategory[] = [
+  "Food",
+  "Books",
+  "Clothing",
+  "Electronics",
+  "Home",
+];
 
 const StyledPopup = styled.div`
   z-index: 999;
@@ -43,16 +50,6 @@ const StyledImage = styled.img`
   padding: 10px;
   margin-left: 20px;
   margin-top: 20px;
-`;
-
-const StyledDescription = styled.div`
-  background: lightgrey;
-  width: 300px;
-  height: 150px;
-  margin-top: 10px;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: 13px;
 `;
 
 const StyledButton = styled.button`
@@ -109,21 +106,20 @@ const Popup: React.FC<PopupProps> = ({
   onDelete,
 }) => {
   const [isDropDownOpen, setDropDownOpen] = useState(false);
-  const [label, setLabel] = useState("Select Category...");
+  const [category, setCategory] = useState(imageCategory);
   const [title, setTitle] = useState(imageTitle);
+  const [description, setDescription] = useState(imageDescription);
 
-  const dropDownContainerHandler = useCallback(() => {
-    console.log(isDropDownOpen);
-    isDropDownOpen && setDropDownOpen(false);
-    !isDropDownOpen && setDropDownOpen(true);
+  const openDropDownContainerHandler = useCallback(() => {
+    isDropDownOpen ? setDropDownOpen(false) : setDropDownOpen(true);
   }, [setDropDownOpen, isDropDownOpen]);
 
   const selectDropDownHandler = useCallback(
-    (category: string) => {
-      setLabel(category);
+    (category: ItemCategory) => {
+      setCategory(category);
       setDropDownOpen(false);
     },
-    [setLabel, setDropDownOpen]
+    [setCategory, setDropDownOpen]
   );
 
   const getInputTextHandler = useCallback(
@@ -131,6 +127,13 @@ const Popup: React.FC<PopupProps> = ({
       setTitle(event.target.value);
     },
     [setTitle]
+  );
+
+  const getTextAreaInputHandler = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement>) => {
+      setDescription(event.target.value);
+    },
+    [setDescription]
   );
 
   return (
@@ -141,13 +144,13 @@ const Popup: React.FC<PopupProps> = ({
           <ImageContent>
             <TextInput value={title} onChange={getInputTextHandler} />
             <DropDown
-              label={label}
+              label={category}
               options={optionsValue}
               isDropDownOpen={isDropDownOpen}
-              onClick={dropDownContainerHandler}
+              onClick={openDropDownContainerHandler}
               onSelect={selectDropDownHandler}
             />
-            <StyledDescription>{imageDescription}</StyledDescription>
+            <TextArea text={description} onChange={getTextAreaInputHandler} />
           </ImageContent>
         </PopupBody>
         <PopupFooter>
@@ -156,7 +159,7 @@ const Popup: React.FC<PopupProps> = ({
           </LeftFooter>
           <RightFooter>
             <StyledButton onClick={onClose}>Cancel</StyledButton>
-            <StyledSaveButton onClick={onSubmit}>Save</StyledSaveButton>
+            <StyledSaveButton onSubmit={onSubmit}>Save</StyledSaveButton>
           </RightFooter>
         </PopupFooter>
       </FullContent>
