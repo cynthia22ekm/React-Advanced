@@ -4,6 +4,10 @@ import { data } from "../../../Data/data";
 import { ItemCategory, Products } from "../../../Data/DataType";
 import Popup from "../../../components/Popup/Popup";
 
+export type StoreItemProps = {
+  onAdd: (item: Products) => void;
+};
+
 const StyledImage = styled.img`
   width: 300px;
   height: 300px;
@@ -44,7 +48,7 @@ const StyledButton = styled.button`
   text-overflow: ellipsis;
 `;
 
-const StoreItem: React.FC = () => {
+const StoreItem: React.FC<StoreItemProps> = ({onAdd}) => {
   const [actualData, setData] = useState<Products[]>(data);
   const [isModalOpen, setModalOpen] = useState(false);
   const [itemView, setItemView] = useState<Products>({
@@ -56,8 +60,6 @@ const StoreItem: React.FC = () => {
     image: "",
     rating: { rate: 0, count: 0 },
   });
-
-  const addToCartProductHandler = useCallback((item: Products) => {}, []);
 
   const openProductView = useCallback(
     (item: Products) => {
@@ -114,10 +116,7 @@ const StoreItem: React.FC = () => {
               onClick={() => openProductView(item)}
             />
             <StyledText>
-              <StyledButton
-                key={key}
-                onClick={() => addToCartProductHandler(item)}
-              >
+              <StyledButton key={key} onClick={() => onAdd(item)}>
                 Add to Cart
               </StyledButton>
               <StyledButton key={key} onClick={() => openProductView(item)}>
