@@ -4,20 +4,29 @@ import { ShoppingCartImage } from "./index";
 export type NavbarProps = {
   linkNames: { linkName: string; linkPath: string }[];
   searchable: boolean;
+  itemCount: number;
 };
 
 const StyledNavbar = styled.div`
-  background: grey;
+  background: lightgrey;
   width: 100%;
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-radius: 5px;
 `;
 
 const StyledLink = styled.a`
-  color: white;
+  color: grey;
   padding: 5px;
+  background: white;
+  height: 20px;
+  width: 20px;
+  margin-left: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  fonr-size: 13px;
 `;
 
 const LeftContainer = styled.div``;
@@ -44,13 +53,27 @@ const ItemCount = styled.div`
   margin-top: 15px;
   height: 20px;
   width: 15px;
-  display: flex; 
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 10px;
 `;
 
-const Navbar: React.FC<NavbarProps> = ({ linkNames, searchable }) => {
+const StyledSearchButton = styled.button`
+  border-radius: 10px;
+  font-size: 13px;
+`;
+
+const StyledSearchInput = styled.input`
+  border-radius: 10px;
+  font-size: 13px;
+`;
+
+const Navbar: React.FC<NavbarProps> = ({
+  linkNames,
+  searchable,
+  itemCount,
+}) => {
   return (
     <div>
       <StyledNavbar>
@@ -65,10 +88,10 @@ const Navbar: React.FC<NavbarProps> = ({ linkNames, searchable }) => {
               <ShoppingCartButton>
                 <ShoppingCartImage />
               </ShoppingCartButton>
-              <ItemCount>3</ItemCount>
+              <ItemCount>{itemCount}</ItemCount>
             </ShoppingCartSection>
-            <input type="text" placeholder="Search..." />
-            <button>Search</button>
+            <StyledSearchInput type="text" placeholder="Search..." />
+            <StyledSearchButton>Search</StyledSearchButton>
           </RightContainer>
         )}
       </StyledNavbar>
