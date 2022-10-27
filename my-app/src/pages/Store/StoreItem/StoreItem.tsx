@@ -1,7 +1,7 @@
 import { FormEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { data } from "../../../Data/data";
-import { Products } from "../../../Data/DataType";
+import { ItemCategory, Products } from "../../../Data/DataType";
 import Popup from "../../../components/Popup/Popup";
 
 const StyledImage = styled.img`
@@ -42,9 +42,29 @@ const StoreItem: React.FC = () => {
     setModalOpen(false);
   }, [setModalOpen]);
 
-  const formSubmitHandler = useCallback(() => {
-    console.log("form");
-  }, []);
+  const formSubmitHandler = useCallback(
+    (
+      id: number,
+      title: string,
+      category: ItemCategory,
+      description: string
+    ) => {
+      setModalOpen(false);
+      setData(
+        actualData.map((data) => {
+          if (data.id === id) {
+            return {
+              ...data,
+              title: title,
+              category: category,
+              description: description,
+            };
+          } else return data;
+        })
+      );
+    },
+    [actualData, setModalOpen]
+  );
 
   const deleteItemHandler = useCallback(() => {}, []);
 
@@ -64,6 +84,7 @@ const StoreItem: React.FC = () => {
       ))}
       {isModalOpen && (
         <Popup
+          imageID={itemView.id}
           imageURL={itemView.image}
           imageTitle={itemView.title}
           imageCategory={itemView.category}
