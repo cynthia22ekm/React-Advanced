@@ -18,7 +18,7 @@ export type PopupProps = {
     category: ItemCategory,
     description: string
   ) => void;
-  onDelete: () => void;
+  onDelete: (imageID: number) => void;
 };
 
 let optionsValue: ItemCategory[] = [
@@ -171,7 +171,9 @@ const Popup: React.FC<PopupProps> = ({
         </PopupBody>
         <PopupFooter>
           <LeftFooter>
-            <StyledButton onClick={onDelete}>Delete</StyledButton>
+            <StyledButton onClick={() => onDelete(imageID)}>
+              Delete
+            </StyledButton>
           </LeftFooter>
           <RightFooter>
             <StyledButton onClick={onClose}>Cancel</StyledButton>
