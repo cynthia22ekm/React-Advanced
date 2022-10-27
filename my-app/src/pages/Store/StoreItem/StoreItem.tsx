@@ -1,4 +1,4 @@
-import { FormEvent, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { data } from "../../../Data/data";
 import { ItemCategory, Products } from "../../../Data/DataType";
@@ -8,7 +8,42 @@ const StyledImage = styled.img`
   width: 300px;
   height: 300px;
   padding: 40px;
+  background: lightgrey;
+  margin-top: 40px;
+  margin-left: 100px;
+  border-radius: 10px;
 `;
+
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
+const StyledText = styled.div`
+  height: 100px;
+  width: 300px;
+  margin-left: 100px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  align-items: center;
+  font-size: 13px;
+`;
+
+const StyledBorder = styled.div`
+  border: 2px black;
+`;
+
+const StyledButton = styled.button`
+  border-radius: 10px;
+  font-size: 13px;
+  margin: 10px;
+  height: 30px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 const StoreItem: React.FC = () => {
   const [actualData, setData] = useState<Products[]>(data);
   const [isModalOpen, setModalOpen] = useState(false);
@@ -22,12 +57,7 @@ const StoreItem: React.FC = () => {
     rating: { rate: 0, count: 0 },
   });
 
-  const deleteProductHandler = useCallback(
-    (product: Products) => {
-      setData(actualData.filter((eachData) => eachData.id !== product.id));
-    },
-    [actualData]
-  );
+  const addToCartProductHandler = useCallback((item: Products) => {}, []);
 
   const openProductView = useCallback(
     (item: Products) => {
@@ -66,22 +96,38 @@ const StoreItem: React.FC = () => {
     [actualData, setModalOpen]
   );
 
-  const deleteItemHandler = useCallback(() => {}, []);
+  const deleteItemHandler = useCallback(
+    (imageID: number) => {
+      setData(actualData.filter((eachData) => eachData.id !== imageID));
+    },
+    [actualData]
+  );
 
   return (
     <div>
-      {actualData.map((item, key) => (
-        <div>
-          <StyledImage
-            key={key}
-            src={item.image}
-            onClick={() => openProductView(item)}
-          />
-          <button key={key} onClick={() => deleteProductHandler(item)}>
-            Delete Product
-          </button>
-        </div>
-      ))}
+      <ImageContainer>
+        {actualData.map((item, key) => (
+          <StyledBorder>
+            <StyledImage
+              key={key}
+              src={item.image}
+              onClick={() => openProductView(item)}
+            />
+            <StyledText>
+              <StyledButton
+                key={key}
+                onClick={() => addToCartProductHandler(item)}
+              >
+                Add to Cart
+              </StyledButton>
+              <StyledButton key={key} onClick={() => openProductView(item)}>
+                View Item
+              </StyledButton>
+              <div>{item.title}</div>
+            </StyledText>
+          </StyledBorder>
+        ))}
+      </ImageContainer>
       {isModalOpen && (
         <Popup
           imageID={itemView.id}
