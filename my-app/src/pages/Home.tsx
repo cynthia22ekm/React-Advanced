@@ -1,5 +1,4 @@
 import Navbar from "../components/Navbar/Navbar";
-import ProgressBar from "../components/ProgressBar/ProgressBar";
 
 const Home: React.FC = () => {
   return (
@@ -10,6 +9,7 @@ const Home: React.FC = () => {
         { linkName: "About", linkPath: "/about" },
       ]}
       searchable={true}
+      itemCount={0}
     />
   );
 };
