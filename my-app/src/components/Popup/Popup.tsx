@@ -6,12 +6,18 @@ import TextArea from "../TextArea/TextArea";
 import TextInput from "../TextInput/TextInput";
 
 export type PopupProps = {
+  imageID: number;
   imageURL: string;
   imageTitle: string;
   imageCategory: ItemCategory;
   imageDescription: string;
   onClose: () => void;
-  onSubmit: () => void;
+  onSubmit: (
+    id: number,
+    title: string,
+    category: ItemCategory,
+    description: string
+  ) => void;
   onDelete: () => void;
 };
 
@@ -35,7 +41,7 @@ const StyledPopup = styled.div`
   align-items: center;
 `;
 
-const FullContent = styled.div`
+const FullContent = styled.form`
   z-index: 999;
   display: block;
   width: 550px;
@@ -97,6 +103,7 @@ const RightFooter = styled.div`
 `;
 
 const Popup: React.FC<PopupProps> = ({
+  imageID,
   imageURL,
   imageTitle,
   imageCategory,
@@ -136,9 +143,18 @@ const Popup: React.FC<PopupProps> = ({
     [setDescription]
   );
 
+  const formSubmitHandler = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      console.log("Hi");
+      onSubmit(imageID, title, category, description);
+    },
+    [imageID, title, category, description, onSubmit]
+  );
+
   return (
     <StyledPopup>
-      <FullContent>
+      <FullContent onSubmit={formSubmitHandler}>
         <PopupBody>
           <StyledImage src={imageURL} alt="image" />
           <ImageContent>
@@ -159,7 +175,7 @@ const Popup: React.FC<PopupProps> = ({
           </LeftFooter>
           <RightFooter>
             <StyledButton onClick={onClose}>Cancel</StyledButton>
-            <StyledSaveButton onSubmit={onSubmit}>Save</StyledSaveButton>
+            <StyledSaveButton type="submit">Save</StyledSaveButton>
           </RightFooter>
         </PopupFooter>
       </FullContent>
