@@ -53,7 +53,7 @@ const DropDown: React.FC<DropDownProps> = ({
 }) => {
   return (
     <div>
-      <StyledButton onClick={onClick}>
+      <StyledButton type="button" onClick={onClick}>
         <div>{label}</div>
         <div>
           <Icon imageURL={DownArrow}></Icon>
