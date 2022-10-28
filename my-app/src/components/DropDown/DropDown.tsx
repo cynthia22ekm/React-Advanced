@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Icon from "../Icon/Icon";
 import DownArrow from "../../imgs/down-arrow.svg";
 import { ItemCategory } from "../../Data/DataType";
+import { useState } from "react";
+import Popup from "../Popup/Popup";
 
 export type DropDownProps = {
   options: ItemCategory[];
@@ -23,17 +25,6 @@ const StyledButton = styled.button`
   font-size: 13px;
 `;
 
-const DropDownContainer = styled.div`
-  height: 170px;
-  width: 300px;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 4;
-  border-radius: 10px;
-  padding: 3px;
-  text-overflow: scroll;
-  position: absolute;
-  top: 290px; ;
-`;
 const DropDownItem = styled.div`
   background: grey;
   margin-top: 2px;
@@ -42,6 +33,17 @@ const DropDownItem = styled.div`
   font-size: 13px;
   color: white;
   cursor: pointer;
+  width: 280px;
+`;
+
+const DropDownContainer = styled.div`
+  height: 100px;
+  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 5px;
+    background: white;
+    border-radius: 10px;
+  }
 `;
 
 const DropDown: React.FC<DropDownProps> = ({
@@ -51,22 +53,33 @@ const DropDown: React.FC<DropDownProps> = ({
   onClick,
   onSelect,
 }) => {
+  const [
+    referenceElement,
+    setReferenceElement,
+  ] = useState<HTMLButtonElement | null>(null);
+
   return (
     <div>
-      <StyledButton type="button" onClick={onClick}>
+      <StyledButton type="button" onClick={onClick} ref={setReferenceElement}>
         <div>{label}</div>
         <div>
           <Icon imageURL={DownArrow}></Icon>
         </div>
       </StyledButton>
       {isDropDownOpen && (
-        <DropDownContainer>
-          {options.map((item, key) => (
-            <DropDownItem key={key} onClick={() => onSelect(item)}>
-              {item}
-            </DropDownItem>
-          ))}
-        </DropDownContainer>
+        <Popup
+          referenceElement={referenceElement}
+          placement="bottom-start"
+          strategy="fixed"
+        >
+          <DropDownContainer>
+            {options.map((item, key) => (
+              <DropDownItem key={key} onClick={() => onSelect(item)}>
+                {item}
+              </DropDownItem>
+            ))}
+          </DropDownContainer>
+        </Popup>
       )}
     </div>
   );
