@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { data } from "../../../Data/data";
 import { ItemCategory, Products } from "../../../Data/DataType";
-import Popup from "../../../components/Popup/Popup";
+import ViewItem from "../ViewItem/ViewItem";
 
 export type StoreItemProps = {
   onAdd: (item: Products) => void;
@@ -48,7 +48,7 @@ const StyledButton = styled.button`
   text-overflow: ellipsis;
 `;
 
-const StoreItem: React.FC<StoreItemProps> = ({onAdd}) => {
+const StoreItem: React.FC<StoreItemProps> = ({ onAdd }) => {
   const [actualData, setData] = useState<Products[]>(data);
   const [isModalOpen, setModalOpen] = useState(false);
   const [itemView, setItemView] = useState<Products>({
@@ -65,7 +65,6 @@ const StoreItem: React.FC<StoreItemProps> = ({onAdd}) => {
     (item: Products) => {
       setModalOpen(true);
       setItemView(item);
-      document.body.style.overflow = "auto";
     },
     [setModalOpen]
   );
@@ -128,7 +127,7 @@ const StoreItem: React.FC<StoreItemProps> = ({onAdd}) => {
         ))}
       </ImageContainer>
       {isModalOpen && (
-        <Popup
+        <ViewItem
           imageID={itemView.id}
           imageURL={itemView.image}
           imageTitle={itemView.title}
@@ -137,7 +136,7 @@ const StoreItem: React.FC<StoreItemProps> = ({onAdd}) => {
           onClose={closePopupHandler}
           onSubmit={formSubmitHandler}
           onDelete={deleteItemHandler}
-        ></Popup>
+        ></ViewItem>
       )}
     </div>
   );
