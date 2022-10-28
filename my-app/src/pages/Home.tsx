@@ -8,7 +8,6 @@ const Home: React.FC = () => {
         { linkName: "Store", linkPath: "/store" },
         { linkName: "About", linkPath: "/about" },
       ]}
-      searchable={true}
       itemCount={0}
     />
   );
