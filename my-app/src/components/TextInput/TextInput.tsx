@@ -6,7 +6,7 @@ type InputSize = "small" | "large";
 export type TextInputProps = {
   value: string;
   placeholder: string;
-  inputSize: InputSize;
+  inputSize?: InputSize;
   ref?: ForwardedRef<HTMLInputElement>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
