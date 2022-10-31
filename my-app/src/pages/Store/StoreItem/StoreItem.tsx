@@ -5,6 +5,7 @@ import { ItemCategory, Products } from "../../../Data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
 
 export type StoreItemProps = {
+  searchText: string;
   onAdd: (item: Products) => void;
 };
 
@@ -48,7 +49,7 @@ const StyledButton = styled.button`
   text-overflow: ellipsis;
 `;
 
-const StoreItem: React.FC<StoreItemProps> = ({ onAdd }) => {
+const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
   const [actualData, setData] = useState<Products[]>(data);
   const [isModalOpen, setModalOpen] = useState(false);
   const [itemView, setItemView] = useState<Products>({
@@ -107,24 +108,48 @@ const StoreItem: React.FC<StoreItemProps> = ({ onAdd }) => {
   return (
     <div>
       <ImageContainer>
-        {actualData.map((item, key) => (
-          <StyledBorder>
-            <StyledImage
-              key={key}
-              src={item.image}
-              onClick={() => openProductView(item)}
-            />
-            <StyledText>
-              <StyledButton key={key} onClick={() => onAdd(item)}>
-                Add to Cart
-              </StyledButton>
-              <StyledButton key={key} onClick={() => openProductView(item)}>
-                View Item
-              </StyledButton>
-              <div>{item.title}</div>
-            </StyledText>
-          </StyledBorder>
-        ))}
+        {searchText.length
+          ? actualData.map((item, key) =>
+              item.title.toLowerCase() === searchText.toLowerCase() ? (
+                <StyledBorder>
+                  <StyledImage
+                    key={key}
+                    src={item.image}
+                    onClick={() => openProductView(item)}
+                  />
+                  <StyledText>
+                    <StyledButton key={key} onClick={() => onAdd(item)}>
+                      Add to Cart
+                    </StyledButton>
+                    <StyledButton
+                      key={key}
+                      onClick={() => openProductView(item)}
+                    >
+                      View Item
+                    </StyledButton>
+                    <div>{item.title}</div>
+                  </StyledText>
+                </StyledBorder>
+              ) : null
+            )
+          : actualData.map((item, key) => (
+              <StyledBorder>
+                <StyledImage
+                  key={key}
+                  src={item.image}
+                  onClick={() => openProductView(item)}
+                />
+                <StyledText>
+                  <StyledButton key={key} onClick={() => onAdd(item)}>
+                    Add to Cart
+                  </StyledButton>
+                  <StyledButton key={key} onClick={() => openProductView(item)}>
+                    View Item
+                  </StyledButton>
+                  <div>{item.title}</div>
+                </StyledText>
+              </StyledBorder>
+            ))}
       </ImageContainer>
       {isModalOpen && (
         <ViewItem

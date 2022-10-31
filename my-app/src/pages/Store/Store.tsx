@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
 import { Products } from "../../Data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
@@ -14,6 +14,7 @@ export type CartItemType = {
 const Store: React.FC = () => {
   const [itemCount, setItemCount] = useState(0);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [searchText, setSearchText] = useState("");
 
   const addToCartHandler = useCallback(
     (item: Products) => {
@@ -47,6 +48,13 @@ const Store: React.FC = () => {
     [itemCount, cartItems, setItemCount, setCartItems]
   );
 
+  const getSearchTextHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setSearchText(event.target.value);
+    },
+    [setSearchText]
+  );
+
   return (
     <div>
       <Navbar
@@ -59,10 +67,12 @@ const Store: React.FC = () => {
       >
         <ShoppingCart
           itemCount={itemCount}
+          searchText={searchText}
           cartItems={cartItems}
+          onChange={getSearchTextHandler}
         ></ShoppingCart>
       </Navbar>
-      <StoreItem onAdd={addToCartHandler}></StoreItem>
+      <StoreItem searchText={searchText} onAdd={addToCartHandler}></StoreItem>
     </div>
   );
 };

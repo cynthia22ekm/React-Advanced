@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import styled from "styled-components";
 import { CartItemType } from "../Store";
 import { ShoppingCartImage } from "./index";
@@ -6,7 +6,9 @@ import ViewShoppingCart from "./ViewShoppingCart";
 
 export type ShoppingCartProps = {
   itemCount: number;
+  searchText: string;
   cartItems: CartItemType[];
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const RightContainer = styled.div`
@@ -40,16 +42,21 @@ const ItemCount = styled.div`
 const StyledSearchButton = styled.button`
   border-radius: 10px;
   font-size: 13px;
+  margin-left: 5px;
 `;
 
 const StyledSearchInput = styled.input`
   border-radius: 10px;
   font-size: 13px;
+  padding: 8px;
+  box-size: border-box;
 `;
 
 const ShoppingCart: React.FC<ShoppingCartProps> = ({
   itemCount,
+  searchText,
   cartItems,
+  onChange,
 }) => {
   const [
     cartButtonReference,
@@ -73,7 +80,11 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
           </ShoppingCartButton>
           <ItemCount>{itemCount}</ItemCount>
         </ShoppingCartSection>
-        <StyledSearchInput type="text" placeholder="Search..." />
+        <StyledSearchInput
+          placeholder="Search..."
+          value={searchText}
+          onChange={onChange}
+        />
         <StyledSearchButton>Search</StyledSearchButton>
       </RightContainer>
       {isCartOpen && (
