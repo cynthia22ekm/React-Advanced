@@ -1,24 +1,43 @@
 import { ChangeEvent } from "react";
 import styled from "styled-components";
 
+type InputSize = "small" | "large";
+
 export type TextInputProps = {
   value: string;
+  placeholder: string;
+  inputSize: InputSize;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const StyledInput = styled.input`
-  background: lightgrey;
-  width: 300px;
+const width = (props: TextInputProps) =>
+  props.inputSize === "small" ? "100px" : "300px";
+
+const StyledInput = styled.input<TextInputProps>((props) => {
+  return `
+ background: lightgrey;
+  width: ${width(props)};
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 10px;
   font-size: 13px;
-  border: none;
-`;
+  border: none;`;
+});
 
-const TextInput: React.FC<TextInputProps> = ({ value, onChange }) => {
+const TextInput: React.FC<TextInputProps> = ({
+  value,
+  placeholder,
+  inputSize = "small",
+  onChange,
+}) => {
   return (
-    <StyledInput type="text" value={value} onChange={onChange}></StyledInput>
+    <StyledInput
+      type="text"
+      inputSize={inputSize}
+      value={value}
+      placeholder={placeholder}
+      onChange={onChange}
+    ></StyledInput>
   );
 };
 

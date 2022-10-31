@@ -158,7 +158,12 @@ const ViewItem: React.FC<ViewItemProps> = ({
         <PopupBody>
           <StyledImage src={imageURL} alt="image" />
           <ImageContent>
-            <TextInput value={title} onChange={getInputTextHandler} />
+            <TextInput
+              inputSize="large"
+              placeholder=""
+              value={title}
+              onChange={getInputTextHandler}
+            />
             <DropDown
               label={category}
               options={optionsValue}
