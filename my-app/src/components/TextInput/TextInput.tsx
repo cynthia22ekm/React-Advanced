@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
 
 type InputSize = "small" | "large";
@@ -7,6 +7,7 @@ export type TextInputProps = {
   value: string;
   placeholder: string;
   inputSize: InputSize;
+  ref?: ForwardedRef<HTMLInputElement>;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -24,21 +25,20 @@ const StyledInput = styled.input<TextInputProps>((props) => {
   border: none;`;
 });
 
-const TextInput: React.FC<TextInputProps> = ({
-  value,
-  placeholder,
-  inputSize = "small",
-  onChange,
-}) => {
+const TextInput: React.FC<TextInputProps> = forwardRef<
+  HTMLInputElement,
+  TextInputProps
+>(({ value, placeholder, inputSize = "small", onChange }, ref) => {
   return (
     <StyledInput
       type="text"
       inputSize={inputSize}
       value={value}
       placeholder={placeholder}
+      ref={ref}
       onChange={onChange}
     ></StyledInput>
   );
-};
+});
 
 export default TextInput;

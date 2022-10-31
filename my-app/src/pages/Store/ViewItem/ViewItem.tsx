@@ -1,9 +1,17 @@
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components";
 import { ItemCategory } from "../../../Data/DataType";
 import DropDown from "../../../components/DropDown/DropDown";
 import TextArea from "../../../components/TextArea/TextArea";
 import TextInput from "../../../components/TextInput/TextInput";
+//https://github.com/DefinitelyTyped/DefinitelyTyped/issues/35572
 
 export type ViewItemProps = {
   imageID: number;
@@ -116,6 +124,11 @@ const ViewItem: React.FC<ViewItemProps> = ({
   const [category, setCategory] = useState(imageCategory);
   const [title, setTitle] = useState(imageTitle);
   const [description, setDescription] = useState(imageDescription);
+  const inputTitleRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    inputTitleRef?.current?.focus();
+  }, []);
 
   const openDropDownContainerHandler = useCallback(() => {
     isDropDownOpen ? setDropDownOpen(false) : setDropDownOpen(true);
@@ -146,7 +159,6 @@ const ViewItem: React.FC<ViewItemProps> = ({
   const formSubmitHandler = useCallback(
     (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      console.log("Hi");
       onSubmit(imageID, title, category, description);
     },
     [imageID, title, category, description, onSubmit]
@@ -162,6 +174,7 @@ const ViewItem: React.FC<ViewItemProps> = ({
               inputSize="large"
               placeholder=""
               value={title}
+              ref={inputTitleRef}
               onChange={getInputTextHandler}
             />
             <DropDown
