@@ -3,7 +3,7 @@ import Popup from "../../../components/Popup/Popup";
 import { CartItemType } from "../Store";
 
 export type ViewShoppingCartProps = {
-  cartItems: CartItemType[];
+  cartItems?: CartItemType[];
   cartButtonReference: HTMLButtonElement | null;
 };
 
@@ -46,15 +46,16 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
       referenceElement={cartButtonReference}
     >
       <CartContainer>
-        {cartItems.map((item) => (
-          <CartItem>
-            <StyledImage src={item.image} alt="No Image" />
-            <div>
-              <CartInfo>{item.title}</CartInfo>
-              <CartInfo>Quantity:{item.quantity}</CartInfo>
-            </div>
-          </CartItem>
-        ))}
+        {cartItems &&
+          cartItems.map((item) => (
+            <CartItem>
+              <StyledImage src={item.image} alt="No Image" />
+              <div>
+                <CartInfo>{item.title}</CartInfo>
+                <CartInfo>Quantity:{item.quantity}</CartInfo>
+              </div>
+            </CartItem>
+          ))}
       </CartContainer>
     </Popup>
   );
