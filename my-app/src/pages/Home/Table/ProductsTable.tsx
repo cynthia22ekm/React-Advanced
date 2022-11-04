@@ -1,7 +1,7 @@
 //Reference taken from https://react-table-v7.tanstack.com/docs/api/useTable,//https://github.com/TanStack/table/discussions/2664
 //https://www.youtube.com/watch?v=CQ165vFGLVs&list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz&index=4
 
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
 import { columns } from "./Columns";
 import { Products } from "../../../API/api";
@@ -17,10 +17,13 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({
-    columns,
-    data,
-  });
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useSortBy
+  );
 
   const StyledTable = styled.table`
     border: 1px solid black;
@@ -45,7 +48,9 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-              <Styledth {...column.getHeaderProps()}>
+              <Styledth
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+              >
                 {column.render("Header")}
               </Styledth>
             ))}
