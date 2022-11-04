@@ -1,11 +1,11 @@
 import { CellProps } from "react-table";
 
 type PriceCellProps = {
-  cell: CellProps<Object>;
+  cellprops: CellProps<any>;
 };
 
-const PriceCell: React.FC = () => {
-  return <div></div>;
+const PriceCell: React.FC<PriceCellProps> = ({ cellprops: { row } }) => {
+  return <div>{row.original["price"]}</div>;
 };
 
 export default PriceCell;
