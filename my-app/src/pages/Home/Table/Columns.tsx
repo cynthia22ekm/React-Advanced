@@ -1,5 +1,9 @@
 import { Column } from "react-table";
 import { Products } from "../../../API/api";
+import PriceCell from "./PriceCell";
+import { CellProps } from "react-table";
+import React, { useMemo } from "react";
+//https://www.bacancytechnology.com/blog/react-table-tutorial
 
 export const columns: Column<Products>[] = [
   {
@@ -21,6 +25,9 @@ export const columns: Column<Products>[] = [
     accessor: "price",
     Header: "Price",
     Footer: "Price",
+    Cell: (row: CellProps<any>) => {
+      return <PriceCell />;
+    },
   },
   {
     accessor: "title",
