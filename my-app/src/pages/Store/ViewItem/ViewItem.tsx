@@ -7,29 +7,27 @@ import {
   useState,
 } from "react";
 import styled from "styled-components";
-import { ItemCategory } from "../../../Data/DataType";
 import DropDown from "../../../components/DropDown/DropDown";
 import TextArea from "../../../components/TextArea/TextArea";
 import TextInput from "../../../components/TextInput/TextInput";
-//https://github.com/DefinitelyTyped/DefinitelyTyped/issues/35572
 
 export type ViewItemProps = {
   imageID: number;
   imageURL: string;
   imageTitle: string;
-  imageCategory: ItemCategory;
+  imageCategory: string;
   imageDescription: string;
   onClose: () => void;
   onSubmit: (
     id: number,
     title: string,
-    category: ItemCategory,
+    category: string,
     description: string
   ) => void;
   onDelete: (imageID: number) => void;
 };
 
-let optionsValue: ItemCategory[] = [
+let optionsValue: string[] = [
   "Food",
   "Books",
   "Clothing",
@@ -135,7 +133,7 @@ const ViewItem: React.FC<ViewItemProps> = ({
   }, [setDropDownOpen, isDropDownOpen]);
 
   const selectDropDownHandler = useCallback(
-    (category: ItemCategory) => {
+    (category: string) => {
       setCategory(category);
       setDropDownOpen(false);
     },
