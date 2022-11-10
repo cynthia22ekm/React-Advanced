@@ -5,6 +5,7 @@ import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
 import { columns } from "./Columns";
 import { Products } from "../../../API/api";
+import ColumnHeaderDropDown from "./ColumnHeaderDropDown/ColumnHeaderDropDown";
 
 export type ProductsTableProps = {
   data: Products[];
@@ -14,7 +15,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
   const {
     getTableProps,
     getTableBodyProps,
-    headerGroups,
+    visibleColumns,
     rows,
     prepareRow,
   } = useTable(
@@ -32,12 +33,6 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
     border-collapse: collapse;
   `;
 
-  const Styledth = styled.th`
-    border: 1px solid black;
-    background: lightgrey;
-    text-align: center;
-  `;
-
   const Styledtd = styled.td`
     border: 1px solid black;
   `;
@@ -45,17 +40,11 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
   return (
     <StyledTable {...getTableProps()}>
       <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Styledth
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-              >
-                {column.render("Header")}
-              </Styledth>
-            ))}
-          </tr>
-        ))}
+        <tr>
+          {visibleColumns.map((column) => {
+            return <ColumnHeaderDropDown column={column} />;
+          })}
+        </tr>
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row, i) => {
