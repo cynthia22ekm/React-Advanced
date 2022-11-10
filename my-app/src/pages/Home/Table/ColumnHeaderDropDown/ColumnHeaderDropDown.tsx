@@ -1,11 +1,12 @@
 import { useCallback, useState } from "react";
 import { ColumnInstance } from "react-table";
 import styled from "styled-components";
+import { Products } from "../../../../API/api";
 import DropDownItem from "../../../../components/DropDown/DropDownItem";
 import Popup from "../../../../components/Popup/Popup";
 
 export type ColumnHeaderDropdownProps = {
-  column: ColumnInstance;
+  column: ColumnInstance<Products>;
 };
 
 const columnOptions = ["Filter Column", "Sort Ascending", "Sort Descending"];
