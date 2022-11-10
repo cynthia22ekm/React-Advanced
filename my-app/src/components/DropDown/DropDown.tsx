@@ -1,16 +1,17 @@
 import styled from "styled-components";
 import Icon from "../Icon/Icon";
 import DownArrow from "../../imgs/down-arrow.svg";
-import { ItemCategory } from "../../Data/DataType";
 import { useState } from "react";
 import Popup from "../Popup/Popup";
+import DropDownItem from "./DropDownItem";
+
 
 export type DropDownProps = {
-  options: ItemCategory[];
+  options: string[];
   label: string;
   isDropDownOpen: boolean;
   onClick: () => void;
-  onSelect: (category: ItemCategory) => void;
+  onSelect: (category: string) => void;
 };
 
 const StyledButton = styled.button`
@@ -23,17 +24,6 @@ const StyledButton = styled.button`
   width: 300px;
   padding: 10px;
   font-size: 13px;
-`;
-
-const DropDownItem = styled.div`
-  background: grey;
-  margin-top: 2px;
-  border-radius: 10px;
-  padding: 5px;
-  font-size: 13px;
-  color: white;
-  cursor: pointer;
-  width: 280px;
 `;
 
 const DropDownContainer = styled.div`
@@ -74,9 +64,11 @@ const DropDown: React.FC<DropDownProps> = ({
         >
           <DropDownContainer>
             {options.map((item, key) => (
-              <DropDownItem key={key} onClick={() => onSelect(item)}>
-                {item}
-              </DropDownItem>
+              <DropDownItem
+                key={key}
+                item={item}
+                onClick={() => onSelect(item)}
+              />
             ))}
           </DropDownContainer>
         </Popup>
