@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
 import { data } from "../../../Data/data";
-import { ItemCategory, Products } from "../../../Data/DataType";
+import { Products } from "../../../Data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
 
 export type StoreItemProps = {
@@ -75,12 +75,7 @@ const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
   }, [setModalOpen]);
 
   const formSubmitHandler = useCallback(
-    (
-      id: number,
-      title: string,
-      category: ItemCategory,
-      description: string
-    ) => {
+    (id: number, title: string, category: string, description: string) => {
       setModalOpen(false);
       setData(
         actualData.map((data) => {
