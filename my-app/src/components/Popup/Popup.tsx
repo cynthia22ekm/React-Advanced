@@ -4,7 +4,7 @@ import { PopperProps, usePopper } from "react-popper";
 import styled from "styled-components";
 
 export type PopupProps = {
-  referenceElement: HTMLButtonElement | null;
+  referenceElement: HTMLElement | null;
   placement: PopperProps<never>["placement"];
   strategy: PositioningStrategy;
 };
