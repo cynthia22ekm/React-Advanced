@@ -11,12 +11,6 @@ export type ColumnHeaderDropdownProps = {
 
 const columnOptions = ["Filter Column", "Sort Ascending", "Sort Descending"];
 
-const StyledHeader = styled.th`
-  display: flex;
-  align-item: center;
-  justify-content: space-between;
-`;
-
 const ColContentContainer = styled.div`
   padding: 5px;
 `;
@@ -40,10 +34,12 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
   );
 
   return (
-    <StyledHeader {...column.getHeaderProps()}>
-      <ColContentContainer ref={setReferenceElement} onClick={openModalHandler}>
-        {column.render("Header")}
-      </ColContentContainer>
+    <th {...column.getHeaderProps()}>
+      {column.render("Header")}
+      <ColContentContainer
+        ref={setReferenceElement}
+        onClick={openModalHandler}
+      ></ColContentContainer>
 
       {openModal && (
         <Popup
@@ -60,7 +56,7 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
           ))}
         </Popup>
       )}
-    </StyledHeader>
+    </th>
   );
 };
 

@@ -41,9 +41,9 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
     <StyledTable {...getTableProps()}>
       <thead>
         <tr>
-          {visibleColumns.map((column) => {
-            return <ColumnHeaderDropDown column={column} />;
-          })}
+          {visibleColumns.map((column) => (
+            <ColumnHeaderDropDown column={column} />
+          ))}
         </tr>
       </thead>
       <tbody {...getTableBodyProps()}>
