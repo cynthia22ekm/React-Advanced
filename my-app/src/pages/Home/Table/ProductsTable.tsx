@@ -11,6 +11,17 @@ export type ProductsTableProps = {
   data: Products[];
 };
 
+const StyledTable = styled.table`
+  border: 1px solid black;
+  margin-left: 20px;
+  margin-top: 50px;
+  border-collapse: collapse;
+`;
+
+const Styledtd = styled.td`
+  border: 1px solid black;
+`;
+
 const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
   const {
     getTableProps,
@@ -25,24 +36,15 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
     },
     useSortBy
   );
-
-  const StyledTable = styled.table`
-    border: 1px solid black;
-    margin-left: 20px;
-    margin-top: 50px;
-    border-collapse: collapse;
-  `;
-
-  const Styledtd = styled.td`
-    border: 1px solid black;
-  `;
+ 
 
   return (
     <StyledTable {...getTableProps()}>
       <thead>
         <tr>
           {visibleColumns.map((column) => (
-            <ColumnHeaderDropDown column={column} />
+            <ColumnHeaderDropDown
+              column={column}          />
           ))}
         </tr>
       </thead>
