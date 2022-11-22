@@ -19,6 +19,7 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
   column,
 }) => {
   const [openModal, setModalOpen] = useState(false);
+  const [isSorting, setSorting] = useState(false);
   const [
     referenceElement,
     setReferenceElement,
@@ -29,12 +30,15 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
   }, [setModalOpen]);
 
   const columnFunctionsHandler = useCallback(
-    () => console.log("columns clicked"),
-    []
+    (item: string) => {
+      setModalOpen(false);
+      item.includes("Sort") ? setSorting(true) : setSorting(false);
+    },
+    [setModalOpen]
   );
 
   return (
-    <th {...column.getHeaderProps()}>
+    <th {...column.getHeaderProps(isSorting?  column.getSortByToggleProps(): )}>
       {column.render("Header")}
       <ColContentContainer
         ref={setReferenceElement}
