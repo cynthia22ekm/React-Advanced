@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Popup from "../../../components/Popup/Popup";
 import { CartItemType } from "../Store";
+import { useCallback } from "react";
 
 export type ViewShoppingCartProps = {
   cartItems?: CartItemType[];
@@ -34,11 +35,24 @@ const StyledImage = styled.img`
   height: 100px;
   margin: 20px;
 `;
+const StyledButton = styled.button`
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  width: 70px;
+  font-size: 13px;
+`;
 
 const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
   cartItems,
   cartButtonReference,
 }) => {
+  const removeItemHanlder = useCallback(() => {
+    console.log("Remove Item");
+  }, []);
+
   return (
     <Popup
       placement="bottom-start"
@@ -54,6 +68,7 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
                 <CartInfo>{item.title}</CartInfo>
                 <CartInfo>Quantity:{item.quantity}</CartInfo>
               </div>
+              <StyledButton onClick={removeItemHanlder}>Remove</StyledButton>
             </CartItem>
           ))}
       </CartContainer>
