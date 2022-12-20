@@ -38,7 +38,7 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
   );
 
   return (
-    <th {...column.getHeaderProps(isSorting?  column.getSortByToggleProps(): )}>
+    <th {...column.getHeaderProps( column.getSortByToggleProps())}>
       {column.render("Header")}
       <ColContentContainer
         ref={setReferenceElement}
