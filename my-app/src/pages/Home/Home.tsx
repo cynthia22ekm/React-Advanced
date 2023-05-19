@@ -4,8 +4,6 @@ import ProductsTable from "./Table/ProductsTable";
 
 const Home: React.FC = () => {
   const { data, isFetching } = useGetProductsQuery();
-  console.log(data);
-  console.log(isFetching);
   return (
     <div>
       <Navbar
