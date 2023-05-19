@@ -37,7 +37,7 @@ const Navbar: React.FC<PropsWithChildren<NavbarProps>> = ({
       <StyledNavbar>
         <div>
           {linkNames.map((link, key) => (
-            <StyledLink href={link.linkPath}>{link.linkName}</StyledLink>
+            <StyledLink key={key} href={link.linkPath}>{link.linkName}</StyledLink>
           ))}
         </div>
         {children}
