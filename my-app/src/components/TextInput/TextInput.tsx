@@ -4,8 +4,8 @@ import styled from "styled-components";
 type InputSize = "small" | "large";
 
 export type TextInputProps = {
-  value: string;
-  placeholder: string;
+  value?: string;
+  placeholder?: string;
   inputSize?: InputSize;
   ref?: ForwardedRef<HTMLInputElement>;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
