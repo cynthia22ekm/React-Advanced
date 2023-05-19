@@ -8,7 +8,7 @@ export type TextInputProps = {
   placeholder: string;
   inputSize?: InputSize;
   ref?: ForwardedRef<HTMLInputElement>;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const width = (props: TextInputProps) =>
