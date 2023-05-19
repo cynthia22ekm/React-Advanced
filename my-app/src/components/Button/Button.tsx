@@ -9,7 +9,11 @@ export type ButtonProps = {
   size: ButtonSize;
 };
 
-const StyledButton = styled.button``;
+const StyledButton = styled.button`
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+`;
 
 const Button: React.FC<ButtonProps> = ({
   label,
@@ -18,7 +22,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <div>
-      <StyledButton label={label} type={type} size={size}></StyledButton>
+      <StyledButton type={type}>{label}</StyledButton>
     </div>
   );
 };
