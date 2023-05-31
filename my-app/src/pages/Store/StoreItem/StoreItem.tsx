@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { Products } from "../../../Data/DataType";
+import { Products } from "../../../data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
-import { Data } from "../../../Data/data";
+import { Data } from "../../../data/Data";
 
 export type StoreItemProps = {
   searchText: string;

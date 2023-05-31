@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { Products } from "../../Data/DataType";
+import { Products } from "../../data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import StoreItem from "./StoreItem/StoreItem";
 
