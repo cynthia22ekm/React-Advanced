@@ -9,11 +9,10 @@ import Store from "./pages/Store/Store";
 import About from "./pages/About/About";
 import Login from "./pages/Login/Login";
 import Game from "./pages/Game/Game";
-import { store } from "./store/store";
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider store={Store}>
       <ApiProvider api={productsApi}>
         <Container>
           <Routes>
