@@ -5,7 +5,7 @@ import dress from "../imgs/dress.jpg";
 import womenClothing from "../imgs/women-clothing.jpg";
 import { Products } from "./DataType";
 
-export const data: Products[] = [
+export const Data: Products[] = [
   {
     id: 1,
     title: "Banana",

@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { data } from "../../../Data/data";
 import { Products } from "../../../Data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
+import { Data } from "../../../Data/data";
 
 export type StoreItemProps = {
   searchText: string;
@@ -50,7 +50,7 @@ const StyledButton = styled.button`
 `;
 
 const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
-  const [actualData, setData] = useState<Products[]>(data);
+  const [actualData, setData] = useState<Products[]>(Data);
   const [isModalOpen, setModalOpen] = useState(false);
   const [itemView, setItemView] = useState<Products>({
     id: 0,
