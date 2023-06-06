@@ -3,7 +3,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import ProductsTable from "./Table/ProductsTable";
 
 const Home: React.FC = () => {
-  const { data, isFetching } = useGetProductsQuery();
+  const { data } = useGetProductsQuery();
   return (
     <div>
       <Navbar
