@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { Products } from "../API/api";
+import { CartItemType } from "../pages/Store/Store";
 
 export interface ShoppingCartState {
-  cartItems: Products[];
+  cartItems: CartItemType[];
 }
 
 const initialState: ShoppingCartState = {
@@ -13,13 +14,14 @@ export const ShoppingCartSlice = createSlice({
   name: "shoppingcart",
   initialState,
   reducers: {
-    addToCart: (state) => {
-      console.log("Action started");
-      state.cartItems.push(...state.cartItems);
-      console.log("Cart length is " + state.cartItems.length);
-      state.cartItems.map((cartItem) =>
-        console.log("Cart items are " + cartItem)
-      );
+    addToCart: (state, action: PayloadAction<Products>) => {
+      state.cartItems.push({
+        id: action.payload.id,
+        title: action.payload.title,
+        quantity: 1,
+        image: action.payload.image,
+      });
+      state.cartItems.map((cartItem) => {});
     },
     removeFromCart: () => {},
   },
