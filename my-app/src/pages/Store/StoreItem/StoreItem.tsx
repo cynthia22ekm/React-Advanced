@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Products } from "../../../data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
 import { Data } from "../../../data/Data";
+import { useDispatch } from "react-redux";
 
 export type StoreItemProps = {
   searchText: string;
@@ -106,20 +107,16 @@ const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
         {searchText.length
           ? actualData.map((item, key) =>
               item.title.toLowerCase() === searchText.toLowerCase() ? (
-                <StyledBorder>
+                <StyledBorder key={key}>
                   <StyledImage
-                    key={key}
                     src={item.image}
                     onClick={() => openProductView(item)}
                   />
                   <StyledText>
-                    <StyledButton key={key} onClick={() => onAdd(item)}>
+                    <StyledButton onClick={() => onAdd(item)}>
                       Add to Cart
                     </StyledButton>
-                    <StyledButton
-                      key={key}
-                      onClick={() => openProductView(item)}
-                    >
+                    <StyledButton onClick={() => openProductView(item)}>
                       View Item
                     </StyledButton>
                     <div>{item.title}</div>
@@ -128,17 +125,16 @@ const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
               ) : null
             )
           : actualData.map((item, key) => (
-              <StyledBorder>
+              <StyledBorder key={key}>
                 <StyledImage
-                  key={key}
                   src={item.image}
                   onClick={() => openProductView(item)}
                 />
                 <StyledText>
-                  <StyledButton key={key} onClick={() => onAdd(item)}>
+                  <StyledButton onClick={() => onAdd(item)}>
                     Add to Cart
                   </StyledButton>
-                  <StyledButton key={key} onClick={() => openProductView(item)}>
+                  <StyledButton onClick={() => openProductView(item)}>
                     View Item
                   </StyledButton>
                   <div>{item.title}</div>
