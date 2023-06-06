@@ -11,7 +11,6 @@ export const CounterSlice = createSlice({
   initialState,
   reducers: {
     increment: (state) => {
-      console.log("Inside increment");
       state.count = state.count + 1;
     },
     decrement: (state) => {
