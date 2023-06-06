@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { CartItemType } from "../pages/Store/Store";
+import { Products } from "../API/api";
 
-interface ShoppingCartState {
-  cartItems: CartItemType[];
+export interface ShoppingCartState {
+  cartItems: Products[];
 }
 
 const initialState: ShoppingCartState = {
@@ -13,7 +13,17 @@ export const ShoppingCartSlice = createSlice({
   name: "shoppingcart",
   initialState,
   reducers: {
-    addToCart: () => {},
+    addToCart: (state) => {
+      console.log("Action started");
+      state.cartItems.push(...state.cartItems);
+      console.log("Cart length is " + state.cartItems.length);
+      state.cartItems.map((cartItem) =>
+        console.log("Cart items are " + cartItem)
+      );
+    },
     removeFromCart: () => {},
   },
 });
+
+export const { addToCart, removeFromCart } = ShoppingCartSlice.actions;
+export default ShoppingCartSlice.reducer;
