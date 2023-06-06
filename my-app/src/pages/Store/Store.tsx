@@ -3,6 +3,10 @@ import Navbar from "../../components/Navbar/Navbar";
 import { Products } from "../../data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import StoreItem from "./StoreItem/StoreItem";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../reduxSlice/ShoppingCarSlice";
+import { increment } from "../../reduxSlice/CounterSlice";
+import { RootState } from "../../store/ReduxStore";
 
 export type CartItemType = {
   id: number;
@@ -15,6 +19,14 @@ const Store: React.FC = () => {
   const [itemCount, setItemCount] = useState(0);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [searchText, setSearchText] = useState("");
+  const shoppingCartItems = useSelector(
+    (state: RootState) => state.shoppingcart.cartItems
+  );
+  const shoppingCartCount = useSelector(
+    (state: RootState) => state.counter.count
+  );
+
+  const dispatch = useDispatch();
 
   const addToCartHandler = useCallback(
     (item: Products) => {
@@ -63,16 +75,22 @@ const Store: React.FC = () => {
           { linkName: "Store", linkPath: "/store" },
           { linkName: "About", linkPath: "/about" },
         ]}
-        itemCount={itemCount}
+        itemCount={shoppingCartCount}
       >
         <ShoppingCart
-          itemCount={itemCount}
+          itemCount={shoppingCartCount}
           searchText={searchText}
-          cartItems={cartItems}
+          cartItems={shoppingCartItems}
           onChange={getSearchTextHandler}
         ></ShoppingCart>
       </Navbar>
-      <StoreItem searchText={searchText} onAdd={addToCartHandler}></StoreItem>
+      <StoreItem
+        searchText={searchText}
+        onAdd={(item: Products) => {
+          dispatch(increment());
+          dispatch(addToCart(item));
+        }}
+      ></StoreItem>
     </div>
   );
 };
