@@ -14,3 +14,6 @@ export const ReduxStore = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
 });
+
+export type RootState = ReturnType<typeof ReduxStore.getState>;
+export type AppDispatch = typeof ReduxStore.dispatch;
