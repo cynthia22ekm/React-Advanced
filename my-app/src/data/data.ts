@@ -7,7 +7,7 @@ import { Products } from "./DataType";
 
 export const Data: Products[] = [
   {
-    id: 1,
+    id: 10,
     title: "Banana",
     price: 1.3,
     category: "Food",
@@ -17,7 +17,7 @@ export const Data: Products[] = [
     rating: { rate: 4.1, count: 259 },
   },
   {
-    id: 2,
+    id: 20,
     title: "Book",
     price: 22.3,
     category: "Books",
@@ -27,7 +27,7 @@ export const Data: Products[] = [
     rating: { rate: 4.1, count: 259 },
   },
   {
-    id: 3,
+    id: 30,
     title: "Computer",
     price: 2200.3,
     category: "Electronics",
@@ -37,7 +37,7 @@ export const Data: Products[] = [
     rating: { rate: 4.1, count: 259 },
   },
   {
-    id: 4,
+    id: 40,
     title: "Kids Clothing",
     price: 220.3,
     category: "Clothing",
@@ -47,7 +47,7 @@ export const Data: Products[] = [
     rating: { rate: 4.1, count: 259 },
   },
   {
-    id: 5,
+    id: 50,
     title: "Women's Clothing",
     price: 220.3,
     category: "Clothing",
