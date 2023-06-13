@@ -58,10 +58,8 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   cartItems,
   onChange,
 }) => {
-  const [
-    cartButtonReference,
-    setCartButtonReference,
-  ] = useState<HTMLButtonElement | null>(null);
+  const [cartButtonReference, setCartButtonReference] =
+    useState<HTMLButtonElement | null>(null);
   const [isCartOpen, setCartOpen] = useState(false);
 
   const openCartHandler = useCallback(() => {
