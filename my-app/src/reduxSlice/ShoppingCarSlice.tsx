@@ -15,15 +15,33 @@ export const ShoppingCartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, action: PayloadAction<Products>) => {
-      state.cartItems.push({
-        id: action.payload.id,
-        title: action.payload.title,
-        quantity: 1,
-        image: action.payload.image,
-      });
-      state.cartItems.map((cartItem) => {});
+      state.cartItems.length
+        ? state.cartItems.filter(
+            (cartItem) => cartItem.id === action.payload.id
+          ).length
+          ? state.cartItems.map((cartItem) => {
+              if (cartItem.id === action.payload.id) {
+                cartItem.quantity = cartItem.quantity + 1;
+              }
+            })
+          : state.cartItems.push({
+              id: action.payload.id,
+              title: action.payload.title,
+              quantity: 1,
+              image: action.payload.image,
+            })
+        : state.cartItems.push({
+            id: action.payload.id,
+            title: action.payload.title,
+            quantity: 1,
+            image: action.payload.image,
+          });
     },
-    removeFromCart: () => {},
+    removeFromCart: (state, action: PayloadAction<CartItemType>) => {
+      state.cartItems = state.cartItems.filter(
+        (cartItem) => cartItem.id !== action.payload.id
+      );
+    },
   },
 });
 
