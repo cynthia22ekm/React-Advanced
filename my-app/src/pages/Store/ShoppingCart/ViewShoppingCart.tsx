@@ -1,7 +1,10 @@
 import styled from "styled-components";
 import Popup from "../../../components/Popup/Popup";
 import { CartItemType } from "../Store";
-import { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../store/ReduxStore";
+import { removeFromCart } from "../../../reduxSlice/ShoppingCarSlice";
+import { decrement } from "../../../reduxSlice/CounterSlice";
 
 export type ViewShoppingCartProps = {
   cartItems: CartItemType[];
@@ -54,14 +57,7 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
   cartItems,
   cartButtonReference,
 }) => {
-  const [cartData, setCartData] = useState<CartItemType[]>(cartItems);
-
-  const removeItemHanlder = useCallback(
-    (item: CartItemType) => {
-      setCartData(cartData.filter((eachData) => eachData.id !== item.id));
-    },
-    [cartData]
-  );
+  const dispatch = useDispatch();
 
   return (
     <Popup
@@ -70,19 +66,27 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
       referenceElement={cartButtonReference}
     >
       <CartContainer>
-        {cartItems &&
-          cartData.map((item) => (
-            <CartItem>
+        {cartItems.length ? (
+          cartItems.map((item, key) => (
+            <CartItem key={key}>
               <StyledImage src={item.image} alt="No Image" />
               <div>
                 <CartInfo>{item.title}</CartInfo>
                 <CartInfo>Quantity:{item.quantity}</CartInfo>
               </div>
-              <StyledButton onClick={() => removeItemHanlder(item)}>
+              <StyledButton
+                onClick={() => {
+                  dispatch(removeFromCart(item));
+                  dispatch(decrement());
+                }}
+              >
                 Remove
               </StyledButton>
             </CartItem>
-          ))}
+          ))
+        ) : (
+          <div>No Items Added</div>
+        )}
       </CartContainer>
     </Popup>
   );
