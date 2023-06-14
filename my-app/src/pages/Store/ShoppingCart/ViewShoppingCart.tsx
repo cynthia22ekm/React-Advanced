@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import Popup from "../../../components/Popup/Popup";
 import { CartItemType } from "../Store";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../store/ReduxStore";
-import { removeFromCart } from "../../../reduxSlice/ShoppingCarSlice";
-import { decrement } from "../../../reduxSlice/CounterSlice";
+import { useDispatch } from "react-redux";
+import {
+  addMoreQuantity,
+  removeFromCart,
+} from "../../../reduxSlice/ShoppingCarSlice";
+import { decrement, increment } from "../../../reduxSlice/CounterSlice";
 
 export type ViewShoppingCartProps = {
   cartItems: CartItemType[];
@@ -45,12 +47,17 @@ const StyledImage = styled.img`
 const StyledButton = styled.button`
   border-radius: 5px;
   border: none;
-  padding: 5px;
+  padding: 1px;
   height: 30px;
-  width: 60px;
+  width: 40px;
   font-size: 13px;
   margin-top: 20px;
   margin-left: 10px;
+`;
+
+const ButtonBorder = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
@@ -74,14 +81,24 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
                 <CartInfo>{item.title}</CartInfo>
                 <CartInfo>Quantity:{item.quantity}</CartInfo>
               </div>
-              <StyledButton
-                onClick={() => {
-                  dispatch(removeFromCart(item));
-                  dispatch(decrement());
-                }}
-              >
-                Remove
-              </StyledButton>
+              <ButtonBorder>
+                <StyledButton
+                  onClick={() => {
+                    dispatch(removeFromCart(item));
+                    dispatch(decrement());
+                  }}
+                >
+                  -
+                </StyledButton>
+                <StyledButton
+                  onClick={() => {
+                    dispatch(addMoreQuantity(item));
+                    dispatch(increment());
+                  }}
+                >
+                  +
+                </StyledButton>
+              </ButtonBorder>
             </CartItem>
           ))
         ) : (
