@@ -21,6 +21,7 @@ const About: React.FC = () => {
           { linkName: "Home", linkPath: "/" },
           { linkName: "Store", linkPath: "/store" },
           { linkName: "About", linkPath: "/about" },
+          { linkName: "Product", linkPath: "/product" },
         ]}
         itemCount={0}
       ></Navbar>
