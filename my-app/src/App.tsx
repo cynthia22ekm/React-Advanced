@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import Game from "./pages/Game/Game";
 import { ReduxStore } from "./store/ReduxStore";
 import Store from "./pages/Store/Store";
+import Product from "./pages/Product/Product";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/store" element={<Store />}></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/product" element={<Product />}></Route>
         </Routes>
       </Container>
     </Provider>
