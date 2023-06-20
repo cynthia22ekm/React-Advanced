@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
 import DropDown from "../../components/DropDown/DropDown";
-import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
+import FileUpload from "../../components/FileUpload/FileUpload";
 
 export interface ProductForm {
   id: number;
@@ -24,28 +24,36 @@ const Product: React.FC = () => {
     isDropDownOpen ? setDropDownOpen(false) : setDropDownOpen(true);
   };
 
+  const uploadFileHandler = (event: ChangeEvent<HTMLInputElement>) =>
+    console.log(event.target.files);
+
   return (
     <div>
       <div>Product ID</div>
-      <TextInput />
+      <TextInput {...register("id")} />
       <div>Product Title</div>
-      <TextInput />
+      <TextInput {...register("title")} />
       <div>Purchase Price</div>
-      <TextInput />
+      <TextInput {...register("price")} />
       <div>Product Description</div>
-      <TextInput />
+      <TextInput {...register("description")} />
       <DropDown
         options={["Food", "Clothing", "Electronics", "Books"]}
         label={"Select Category"}
         isDropDownOpen={isDropDownOpen}
         onClick={clickButtonHandler}
         onSelect={selectCategoryHandler}
-      ></DropDown>
-      <Button label={"Upload Image"} type={"button"} size={"large"} />
+        {...register("category")}
+      />
+      <FileUpload
+        inputSize="large"
+        {...register("image")}
+        onChange={uploadFileHandler}
+      />
       <div>Sales Price</div>
-      <TextInput />
+      <TextInput {...register("rate")} />
       <div>Quantity</div>
-      <TextInput />
+      <TextInput {...register("count")} />
     </div>
   );
 };
