@@ -20,13 +20,14 @@ height: ${size}==="small"? 40px: ${size}==="medium"? 50px:60px
 const FileUpload: React.FC<FileUploadProps> = forwardRef<
   HTMLInputElement,
   FileUploadProps
->(({ inputSize, onChange }, ref) => {
+>(({ inputSize, onChange, ...props }, ref) => {
   return (
     <StyledInput
       type="file"
       inputSize={inputSize}
       ref={ref}
       onChange={onChange}
+      {...props}
     />
   );
 });

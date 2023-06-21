@@ -28,7 +28,7 @@ const StyledInput = styled.input<TextInputProps>((props) => {
 const TextInput: React.FC<TextInputProps> = forwardRef<
   HTMLInputElement,
   TextInputProps
->(({ value, placeholder, inputSize = "small", onChange }, ref) => {
+>(({ value, placeholder, inputSize = "small", onChange, ...props }, ref) => {
   return (
     <StyledInput
       type="text"
@@ -37,7 +37,8 @@ const TextInput: React.FC<TextInputProps> = forwardRef<
       placeholder={placeholder}
       ref={ref}
       onChange={onChange}
-    ></StyledInput>
+      {...props}
+    />
   );
 });
 
