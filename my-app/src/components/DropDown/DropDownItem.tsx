@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export type DropDownItemProps = {
-  key: number;
   item: string;
   onClick: (item: string) => void;
 };
@@ -17,12 +16,8 @@ const StyledItem = styled.div`
   width: 280px;
 `;
 
-const DropDownItem: React.FC<DropDownItemProps> = ({ key, item, onClick }) => {
-  return (
-    <StyledItem key={key} onClick={() => onClick(item)}>
-      {item}
-    </StyledItem>
-  );
+const DropDownItem: React.FC<DropDownItemProps> = ({ item, onClick }) => {
+  return <StyledItem onClick={() => onClick(item)}>{item}</StyledItem>;
 };
 
 export default DropDownItem;
