@@ -1,8 +1,9 @@
-import { useForm } from "react-hook-form";
-import DropDown from "../../components/DropDown/DropDown";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import FileUpload from "../../components/FileUpload/FileUpload";
+import { SelectedItemType } from "../../components/Select/Select";
+import Select from "react-select";
 
 export interface ProductForm {
   id: number;
@@ -15,46 +16,114 @@ export interface ProductForm {
   count: number;
 }
 
+let categories = [
+  { value: "Food", label: "Food" },
+  { value: "Clothing", label: "Clothing" },
+  { value: "Electronics", label: "Electronics" },
+  { value: "Books", label: "Books" },
+];
+
 const Product: React.FC = () => {
-  const { register, handleSubmit } = useForm<ProductForm>();
-  const [isDropDownOpen, setDropDownOpen] = useState(false);
-  const selectCategoryHandler = (item: string) =>
-    console.log("Selected text is " + item);
-  const clickButtonHandler = () => {
-    isDropDownOpen ? setDropDownOpen(false) : setDropDownOpen(true);
-  };
+  const { control, handleSubmit } = useForm<ProductForm>({
+    defaultValues: {
+      id: 0,
+      title: "",
+      price: 0,
+      description: "",
+      category: "",
+      image: "",
+      rate: 0,
+      count: 0,
+    },
+  });
 
   const uploadFileHandler = (event: ChangeEvent<HTMLInputElement>) =>
     console.log(event.target.files);
 
+  const onSubmit: SubmitHandler<ProductForm> = (data) => {};
+
   return (
-    <div>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <div>Product ID</div>
-      <TextInput {...register("id")} />
+      <Controller
+        control={control}
+        name="id"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput ref={ref} onChange={onChange} />
+        )}
+      />
+
       <div>Product Title</div>
-      <TextInput {...register("title")} />
+      <Controller
+        control={control}
+        name="title"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput ref={ref} onChange={onChange} />
+        )}
+      />
       <div>Purchase Price</div>
-      <TextInput {...register("price")} />
+      <Controller
+        control={control}
+        name="price"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput
+            ref={ref}
+            onChange={(event) => onChange(event.target.value)}
+          />
+        )}
+      />
       <div>Product Description</div>
-      <TextInput {...register("description")} />
-      <DropDown
-        options={["Food", "Clothing", "Electronics", "Books"]}
-        label={"Select Category"}
-        isDropDownOpen={isDropDownOpen}
-        onClick={clickButtonHandler}
-        onSelect={selectCategoryHandler}
-        {...register("category")}
+      <Controller
+        control={control}
+        name="description"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput ref={ref} onChange={onChange} />
+        )}
       />
-      <FileUpload
-        inputSize="large"
-        {...register("image")}
-        onChange={uploadFileHandler}
+      <Controller
+        control={control}
+        name="category"
+        render={({ field: { value, ref, onChange } }) => (
+          <Select
+            options={categories}
+            value={
+              categories.find(
+                (category) => category.value === value
+              ) as SelectedItemType
+            }
+            onChange={(selectedItem: unknown) => {
+              onChange((selectedItem as SelectedItemType).value);
+            }}
+          />
+        )}
       />
+
+      <Controller
+        control={control}
+        name="image"
+        render={({ field: { ref, onChange } }) => (
+          <FileUpload ref={ref} onChange={onChange} />
+        )}
+      />
+
       <div>Sales Price</div>
-      <TextInput {...register("rate")} />
+      <Controller
+        control={control}
+        name="rate"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput ref={ref} onChange={onChange} />
+        )}
+      />
       <div>Quantity</div>
-      <TextInput {...register("count")} />
-    </div>
+      <Controller
+        control={control}
+        name="count"
+        render={({ field: { ref, onChange } }) => (
+          <TextInput ref={ref} onChange={onChange} />
+        )}
+      />
+      <input type="submit" />
+    </form>
   );
 };
 
