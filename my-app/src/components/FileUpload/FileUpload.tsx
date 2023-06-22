@@ -6,7 +6,7 @@ type ButtonSize = "small" | "medium" | "large";
 export type FileUploadProps = {
   inputSize?: ButtonSize;
   ref?: ForwardedRef<HTMLInputElement>;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const StyledInput = styled.input<FileUploadProps>((props) => {
