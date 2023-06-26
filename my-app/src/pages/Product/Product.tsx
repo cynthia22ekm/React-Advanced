@@ -2,8 +2,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import { ChangeEvent } from "react";
 import FileUpload from "../../components/FileUpload/FileUpload";
-import { SelectedItemType } from "../../components/Select/Select";
-import Select from "react-select";
+import SelectBox, { SelectedItemType } from "../../components/Select/Select";
 
 export interface ProductForm {
   id: number;
@@ -40,7 +39,9 @@ const Product: React.FC = () => {
   const uploadFileHandler = (event: ChangeEvent<HTMLInputElement>) =>
     console.log(event.target.files);
 
-  const onSubmit: SubmitHandler<ProductForm> = (data) => {};
+  const onSubmit: SubmitHandler<ProductForm> = (data) => {
+    console.log("Category is " + data.category);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,14 +84,10 @@ const Product: React.FC = () => {
       <Controller
         control={control}
         name="category"
-        render={({ field: { value, ref, onChange } }) => (
-          <Select
+        render={({ field: { ref, onChange } }) => (
+          <SelectBox
             options={categories}
-            value={
-              categories.find(
-                (category) => category.value === value
-              ) as SelectedItemType
-            }
+            ref={ref}
             onChange={(selectedItem: unknown) => {
               onChange((selectedItem as SelectedItemType).value);
             }}
