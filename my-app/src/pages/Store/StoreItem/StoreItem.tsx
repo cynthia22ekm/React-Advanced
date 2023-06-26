@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Products } from "../../../data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
 import { Data } from "../../../data/Data";
-import { useDispatch } from "react-redux";
 
 export type StoreItemProps = {
   searchText: string;
