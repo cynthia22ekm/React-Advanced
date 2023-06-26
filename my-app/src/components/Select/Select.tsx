@@ -7,7 +7,6 @@ export type SelectedItemType = {
 };
 
 export type SelectProps = {
-  value?: string;
   options: SelectedItemType[];
   ref?: ForwardedRef<SelectInstance>;
   onChange: (selectedItem: SelectedItemType) => void;
@@ -16,13 +15,10 @@ export type SelectProps = {
 const SelectBox: React.FC<SelectProps> = forwardRef<
   SelectInstance,
   SelectProps
->(({ value, options, onChange, ...props }, ref) => {
+>(({ options, onChange, ...props }, ref) => {
   return (
     <Select
       options={options}
-      value={
-        options.find((option) => option.value === value) as SelectedItemType
-      }
       ref={ref}
       onChange={(newValue: unknown) => onChange(newValue as SelectedItemType)}
       {...props}
