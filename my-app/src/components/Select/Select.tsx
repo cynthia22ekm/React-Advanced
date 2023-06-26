@@ -1,5 +1,6 @@
-import { ForwardedRef, forwardRef } from "react";
+import { forwardRef } from "react";
 import Select, { SelectInstance } from "react-select";
+import styled from "styled-components";
 
 export type SelectedItemType = {
   value: string;
@@ -8,20 +9,21 @@ export type SelectedItemType = {
 
 export type SelectProps = {
   options: SelectedItemType[];
-  ref?: ForwardedRef<SelectInstance>;
   onChange: (selectedItem: SelectedItemType) => void;
 };
+
+const StyledSelect = styled(Select)`
+  border-radius: 10px;
+`;
 
 const SelectBox: React.FC<SelectProps> = forwardRef<
   SelectInstance,
   SelectProps
->(({ options, onChange, ...props }, ref) => {
+>(({ options, onChange }) => {
   return (
-    <Select
+    <StyledSelect
       options={options}
-      ref={ref}
       onChange={(newValue: unknown) => onChange(newValue as SelectedItemType)}
-      {...props}
     />
   );
 });
