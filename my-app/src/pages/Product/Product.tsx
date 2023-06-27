@@ -140,11 +140,10 @@ const Product: React.FC = () => {
           <Controller
             control={control}
             name="category"
-            render={({ field: { ref, onChange } }) => (
+            render={({ field: { onChange } }) => (
               <SelectBox
                 options={categories}
-                ref={ref}
-                onChange={(selectedItem: unknown) => {
+                 onChange={(selectedItem: unknown) => {
                   onChange((selectedItem as SelectedItemType).value);
                 }}
               />
