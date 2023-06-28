@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import CounterReducer from "../reduxSlice/CounterSlice";
 import ShoppingCartReducer from "../reduxSlice/ShoppingCarSlice";
+import ProductReducer from "../reduxSlice/ProductSlice";
 import productsApi from "../API/api";
 
 //https://dev.to/ifeanyichima/what-is-createasyncthunk-in-redux--mhe
@@ -10,6 +11,7 @@ export const ReduxStore = configureStore({
     counter: CounterReducer,
     shoppingcart: ShoppingCartReducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    productData: ProductReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
