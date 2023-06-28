@@ -7,6 +7,7 @@ export type TextInputProps = {
   value?: string;
   placeholder?: string;
   inputSize?: InputSize;
+  color?: string;
   ref?: ForwardedRef<HTMLInputElement>;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -16,6 +17,7 @@ const width = (props: TextInputProps) =>
 
 const StyledInput = styled.input<TextInputProps>((props) => {
   return `
+  background-color: ${props.color};
   width: ${width(props)};
   padding: 10px;
   border-radius: 10px;
