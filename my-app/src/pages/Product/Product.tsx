@@ -130,6 +130,12 @@ const Product: React.FC = () => {
                 <Controller
                   control={control}
                   name="purchasePrice"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Purchase Price is Required",
+                    },
+                  }}
                   render={({ field: { onChange } }) => (
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
@@ -143,6 +149,12 @@ const Product: React.FC = () => {
                 <Controller
                   control={control}
                   name="category"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Product Category is required",
+                    },
+                  }}
                   render={({ field: { onChange } }) => (
                     <SelectBox
                       classNamePrefix="select"
@@ -162,6 +174,12 @@ const Product: React.FC = () => {
                 <Controller
                   control={control}
                   name="salesPrice"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Sales Price is required",
+                    },
+                  }}
                   render={({ field: { onChange } }) => (
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
@@ -177,6 +195,12 @@ const Product: React.FC = () => {
                 <Controller
                   control={control}
                   name="title"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Product Title is required",
+                    },
+                  }}
                   render={({ field: { onChange } }) => (
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
@@ -214,6 +238,12 @@ const Product: React.FC = () => {
                 <Controller
                   control={control}
                   name="quantity"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Product quantity is required",
+                    },
+                  }}
                   render={({ field: { onChange } }) => (
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
