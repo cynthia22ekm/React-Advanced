@@ -55,11 +55,11 @@ const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
   const [itemView, setItemView] = useState<Products>({
     id: 0,
     title: "",
-    price: 0,
+    purchasePrice: 0,
     category: "Food",
     description: "",
     image: "",
-    rating: { rate: 0, count: 0 },
+    rating: { salesPrice: 0, quantity: 0 },
   });
 
   const openProductView = useCallback(
