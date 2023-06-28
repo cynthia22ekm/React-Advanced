@@ -3,7 +3,6 @@ import TextInput from "../../components/TextInput/TextInput";
 import { ChangeEvent } from "react";
 import FileUpload from "../../components/FileUpload/FileUpload";
 import SelectBox, { SelectedItemType } from "../../components/Select/Select";
-import { Data } from "../../data/Data";
 import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import Navbar from "../../components/Navbar/Navbar";
@@ -81,22 +80,7 @@ const Product: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<ProductType> = (data) => {
-    dispatch(
-      addProducts({
-        id: data.id,
-        title: data.title,
-        purchasePrice: data.purchasePrice,
-        category: data.category,
-        description: data.description,
-        image: data.image,
-        rating: {
-          salesPrice: data.rating.salesPrice,
-          quantity: data.rating.quantity,
-        },
-      })
-    );
-
-    Data.map((eachData) => console.log("Image is " + eachData.category));
+    dispatch(addProducts(data));
   };
 
   return (
