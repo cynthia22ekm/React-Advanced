@@ -16,7 +16,6 @@ const width = (props: TextInputProps) =>
 
 const StyledInput = styled.input<TextInputProps>((props) => {
   return `
- background: lightgrey;
   width: ${width(props)};
   padding: 10px;
   border-radius: 10px;
