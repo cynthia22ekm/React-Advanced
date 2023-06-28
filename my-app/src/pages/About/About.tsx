@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Navbar from "../../components/Navbar/Navbar";
 import { Contact } from "./Contact";
-import { ContactDetails } from "./ContactDetails";
+import { ContactType } from "../../data/DataType";
 
 const ContactSection = styled.div`
   margin-top: 20%;
@@ -13,7 +13,7 @@ const ContactSection = styled.div`
 `;
 
 const About: React.FC = () => {
-  const onSubmitHandler = (data: ContactDetails) => console.log(data);
+  const onSubmitHandler = (data: ContactType) => console.log(data);
   return (
     <div>
       <Navbar
