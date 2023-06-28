@@ -3,10 +3,10 @@ import { ColumnInstance } from "react-table";
 import styled from "styled-components";
 import DropDownItem from "../../../../components/DropDown/DropDownItem";
 import Popup from "../../../../components/Popup/Popup";
-import { Products } from "../../../../data/DataType";
+import { ProductType } from "../../../../data/DataType";
 
 export type ColumnHeaderDropdownProps = {
-  column: ColumnInstance<Products>;
+  column: ColumnInstance<ProductType>;
 };
 
 const columnOptions = ["Filter Column", "Sort Ascending", "Sort Descending"];

@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import Navbar from "../../components/Navbar/Navbar";
-import { Products } from "../../data/DataType";
+import { ProductType } from "../../data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import StoreItem from "./StoreItem/StoreItem";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,7 +29,7 @@ const Store: React.FC = () => {
   const dispatch = useDispatch();
 
   const addToCartHandler = useCallback(
-    (item: Products) => {
+    (item: ProductType) => {
       setItemCount(itemCount + 1);
       cartItems.length
         ? cartItems.filter((cartItem) => cartItem.id === item.id).length
@@ -87,7 +87,7 @@ const Store: React.FC = () => {
       </Navbar>
       <StoreItem
         searchText={searchText}
-        onAdd={(item: Products) => {
+        onAdd={(item: ProductType) => {
           dispatch(increment());
           dispatch(addToCart(item));
         }}

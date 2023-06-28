@@ -3,9 +3,9 @@ import book from "../imgs/book.jpg";
 import computer from "../imgs/computer.jpg";
 import dress from "../imgs/dress.jpg";
 import womenClothing from "../imgs/women-clothing.jpg";
-import { Products } from "./DataType";
+import { ProductType } from "./DataType";
 
-export const Data: Products[] = [
+export const Data: ProductType[] = [
   {
     id: 10,
     title: "Banana",

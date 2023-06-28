@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { CartItemType } from "../pages/Store/Store";
-import { Products } from "../data/DataType";
+import { ProductType } from "../data/DataType";
 
 export interface ShoppingCartState {
   cartItems: CartItemType[];
@@ -14,7 +14,7 @@ export const ShoppingCartSlice = createSlice({
   name: "shoppingcart",
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Products>) => {
+    addToCart: (state, action: PayloadAction<ProductType>) => {
       state.cartItems.length
         ? state.cartItems.filter(
             (cartItem) => cartItem.id === action.payload.id

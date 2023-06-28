@@ -6,17 +6,11 @@ import SelectBox, { SelectedItemType } from "../../components/Select/Select";
 import { Data } from "../../data/Data";
 import styled from "styled-components";
 import Button from "../../components/Button/Button";
-
-export interface ProductForm {
-  id: number;
-  title: string;
-  purchasePrice: number;
-  description: string;
-  category: string;
-  image: string;
-  salesPrice: number;
-  quantity: number;
-}
+import Navbar from "../../components/Navbar/Navbar";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/ReduxStore";
+import { addProducts } from "../../reduxSlice/ProductSlice";
+import { ProductType } from "../../data/DataType";
 
 let categories = [
   { value: "Food", label: "Food" },
@@ -62,11 +56,15 @@ const ErrorMessage = styled.div`
 `;
 
 const Product: React.FC = () => {
+  const dispatch = useDispatch();
+  const productState = useSelector(
+    (state: RootState) => state.productData.products
+  );
   const {
     control,
     formState: { errors },
     handleSubmit,
-  } = useForm<ProductForm>({
+  } = useForm<ProductType>({
     mode: "onSubmit",
   });
 
@@ -82,22 +80,36 @@ const Product: React.FC = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<ProductForm> = (data) => {
-    console.log("submitted");
-    Data.push({
-      id: data.id,
-      title: data.title,
-      purchasePrice: data.purchasePrice,
-      category: data.category,
-      description: data.description,
-      image: data.image,
-      rating: { salesPrice: data.salesPrice, quantity: data.quantity },
-    });
+  const onSubmit: SubmitHandler<ProductType> = (data) => {
+    dispatch(
+      addProducts({
+        id: data.id,
+        title: data.title,
+        purchasePrice: data.purchasePrice,
+        category: data.category,
+        description: data.description,
+        image: data.image,
+        rating: {
+          salesPrice: data.rating.salesPrice,
+          quantity: data.rating.quantity,
+        },
+      })
+    );
+
     Data.map((eachData) => console.log("Image is " + eachData.category));
   };
 
   return (
     <div>
+      <Navbar
+        linkNames={[
+          { linkName: "Home", linkPath: "/" },
+          { linkName: "Store", linkPath: "/store" },
+          { linkName: "About", linkPath: "/about" },
+          { linkName: "Product", linkPath: "/product" },
+        ]}
+        itemCount={0}
+      />
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <FormSection>
           <FieldGroups>
@@ -110,7 +122,7 @@ const Product: React.FC = () => {
                   rules={{
                     required: {
                       value: true,
-                      message: "Please enter the Product ID",
+                      message: "Product ID is required",
                     },
                     minLength: {
                       value: 3,
@@ -133,7 +145,7 @@ const Product: React.FC = () => {
                   rules={{
                     required: {
                       value: true,
-                      message: "Purchase Price is Required",
+                      message: "Purchase Price is required",
                     },
                   }}
                   render={({ field: { onChange } }) => (
@@ -173,7 +185,7 @@ const Product: React.FC = () => {
               <div>
                 <Controller
                   control={control}
-                  name="salesPrice"
+                  name="rating.salesPrice"
                   rules={{
                     required: {
                       value: true,
@@ -184,7 +196,9 @@ const Product: React.FC = () => {
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
                 />
-                <ErrorMessage>{errors.salesPrice?.message}</ErrorMessage>
+                <ErrorMessage>
+                  {errors.rating?.salesPrice?.message}
+                </ErrorMessage>
               </div>
             </StyledBorder>
           </FieldGroups>
@@ -237,7 +251,7 @@ const Product: React.FC = () => {
               <div>
                 <Controller
                   control={control}
-                  name="quantity"
+                  name="rating.quantity"
                   rules={{
                     required: {
                       value: true,
@@ -248,7 +262,7 @@ const Product: React.FC = () => {
                     <TextInput inputSize="large" onChange={onChange} />
                   )}
                 />
-                <ErrorMessage>{errors.quantity?.message}</ErrorMessage>
+                <ErrorMessage>{errors.rating?.quantity?.message}</ErrorMessage>
               </div>
             </StyledBorder>
           </FieldGroups>

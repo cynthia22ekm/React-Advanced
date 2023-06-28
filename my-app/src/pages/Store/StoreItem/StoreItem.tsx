@@ -1,12 +1,12 @@
 import { useCallback, useState } from "react";
 import styled from "styled-components";
-import { Products } from "../../../data/DataType";
+import { ProductType } from "../../../data/DataType";
 import ViewItem from "../ViewItem/ViewItem";
 import { Data } from "../../../data/Data";
 
 export type StoreItemProps = {
   searchText: string;
-  onAdd: (item: Products) => void;
+  onAdd: (item: ProductType) => void;
 };
 
 const StyledImage = styled.img`
@@ -50,9 +50,9 @@ const StyledButton = styled.button`
 `;
 
 const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
-  const [actualData, setData] = useState<Products[]>(Data);
+  const [actualData, setData] = useState<ProductType[]>(Data);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [itemView, setItemView] = useState<Products>({
+  const [itemView, setItemView] = useState<ProductType>({
     id: 0,
     title: "",
     purchasePrice: 0,
@@ -63,7 +63,7 @@ const StoreItem: React.FC<StoreItemProps> = ({ searchText, onAdd }) => {
   });
 
   const openProductView = useCallback(
-    (item: Products) => {
+    (item: ProductType) => {
       setModalOpen(true);
       setItemView(item);
     },

@@ -5,10 +5,10 @@ import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
 import { columns } from "./Columns";
 import ColumnHeaderDropDown from "./ColumnHeaderDropDown/ColumnHeaderDropDown";
-import { Products } from "../../../data/DataType";
+import { ProductType } from "../../../data/DataType";
 
 export type ProductsTableProps = {
-  data: Products[];
+  data: ProductType[];
 };
 
 const StyledTable = styled.table`
