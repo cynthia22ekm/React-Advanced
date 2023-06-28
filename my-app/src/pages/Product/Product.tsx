@@ -5,6 +5,7 @@ import FileUpload from "../../components/FileUpload/FileUpload";
 import SelectBox, { SelectedItemType } from "../../components/Select/Select";
 import { Data } from "../../data/Data";
 import styled from "styled-components";
+import Button from "../../components/Button/Button";
 
 export interface ProductForm {
   id: number;
@@ -33,34 +34,40 @@ const StyledForm = styled.form`
   border-radius: 10px;
 `;
 
-const StyledBorder = styled.div`
-  padding: 10px;
-  display: flex;
-  width: 80%;
-  align-items: center;
-`;
-
-const StyledTitle = styled.div`
-  margin-right: 20px;
-`;
-
-const FieldGroups = styled.div`
+const FormSection = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
+const StyledBorder = styled.div`
+  padding: 10px;
+  display: flex;
+  width: 80%;
+`;
+
+const StyledTitle = styled.div`
+  margin-right: 20px;
+  margin-top: 5px;
+`;
+
+const SubmitButton = styled(Button)`
+  margin-left: 40%;
+`;
+
+const FieldGroups = styled.div``;
+
+const ErrorMessage = styled.div`
+  color: red;
+  margin: 10px;
+`;
+
 const Product: React.FC = () => {
-  const { control, handleSubmit } = useForm<ProductForm>({
-    defaultValues: {
-      id: 0,
-      title: "",
-      price: 0,
-      description: "",
-      category: "",
-      image: "",
-      rate: 0,
-      count: 0,
-    },
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<ProductForm>({
+    mode: "onSubmit",
   });
 
   const handleFileUpload = (
@@ -76,6 +83,7 @@ const Product: React.FC = () => {
   };
 
   const onSubmit: SubmitHandler<ProductForm> = (data) => {
+    console.log("submitted");
     Data.push({
       id: data.id,
       title: data.title,
@@ -85,110 +93,132 @@ const Product: React.FC = () => {
       image: data.image,
       rating: { rate: data.rate, count: data.count },
     });
-    Data.map((eachData) => console.log("Image is " + eachData.id));
+    Data.map((eachData) => console.log("Image is " + eachData.category));
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
-      <FieldGroups>
-        <StyledBorder>
-          <StyledTitle>Product ID</StyledTitle>
-          <Controller
-            control={control}
-            name="id"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={onChange} />
-            )}
-          />
-        </StyledBorder>
-        <StyledBorder>
-          <StyledTitle>Product Title</StyledTitle>
-          <Controller
-            control={control}
-            name="title"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={onChange} />
-            )}
-          />
-        </StyledBorder>
-      </FieldGroups>
-      <FieldGroups>
-        <StyledBorder>
-          <StyledTitle>Purchase Price</StyledTitle>
-          <Controller
-            control={control}
-            name="price"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={(event) => onChange(event.target.value)} />
-            )}
-          />
-        </StyledBorder>
-        <StyledBorder>
-          <StyledTitle>Product Description</StyledTitle>
-          <Controller
-            control={control}
-            name="description"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={onChange} />
-            )}
-          />
-        </StyledBorder>
-      </FieldGroups>
-      <FieldGroups>
-        <StyledBorder>
-          <StyledTitle>Category</StyledTitle>
-          <Controller
-            control={control}
-            name="category"
-            render={({ field: { onChange } }) => (
-              <SelectBox
-                options={categories}
-                 onChange={(selectedItem: unknown) => {
-                  onChange((selectedItem as SelectedItemType).value);
-                }}
+    <div>
+      <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <FormSection>
+          <FieldGroups>
+            <StyledBorder>
+              <StyledTitle>Product ID</StyledTitle>
+              <div>
+                <Controller
+                  control={control}
+                  name="id"
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Please enter the Product ID",
+                    },
+                    minLength: {
+                      value: 3,
+                      message: "Minimum length is 3",
+                    },
+                  }}
+                  render={({ field: { onChange } }) => (
+                    <TextInput inputSize="large" onChange={onChange} />
+                  )}
+                />
+                <ErrorMessage>{errors.id?.message}</ErrorMessage>
+              </div>
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Purchase Price</StyledTitle>
+              <Controller
+                control={control}
+                name="price"
+                render={({ field: { onChange } }) => (
+                  <TextInput inputSize="large" onChange={onChange} />
+                )}
               />
-            )}
-          />
-        </StyledBorder>
-        <StyledBorder>
-          <StyledTitle>Profile Photo</StyledTitle>
-          <Controller
-            control={control}
-            name="image"
-            render={({ field: { onChange } }) => (
-              <FileUpload
-                onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                  handleFileUpload(event, onChange)
-                }
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Category</StyledTitle>
+              <Controller
+                control={control}
+                name="category"
+                render={({ field: { onChange } }) => (
+                  <SelectBox
+                    classNamePrefix="select"
+                    options={categories}
+                    onChange={(selectedItem: unknown) => {
+                      onChange((selectedItem as SelectedItemType).value);
+                    }}
+                  />
+                )}
               />
-            )}
-          />
-        </StyledBorder>
-      </FieldGroups>
-      <FieldGroups>
-        <StyledBorder>
-          <StyledTitle>Sales Price</StyledTitle>
-          <Controller
-            control={control}
-            name="rate"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={onChange} />
-            )}
-          />
-        </StyledBorder>
-        <StyledBorder>
-          <StyledTitle>Quantity</StyledTitle>
-          <Controller
-            control={control}
-            name="count"
-            render={({ field: { onChange } }) => (
-              <TextInput onChange={onChange} />
-            )}
-          />
-        </StyledBorder>
-      </FieldGroups>
-      <input type="submit" />
-    </StyledForm>
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Sales Price</StyledTitle>
+              <Controller
+                control={control}
+                name="rate"
+                render={({ field: { onChange } }) => (
+                  <TextInput inputSize="large" onChange={onChange} />
+                )}
+              />
+            </StyledBorder>
+          </FieldGroups>
+          <FieldGroups>
+            <StyledBorder>
+              <StyledTitle>Product Title</StyledTitle>
+              <div>
+                <Controller
+                  control={control}
+                  name="title"
+                  render={({ field: { onChange } }) => (
+                    <TextInput inputSize="large" onChange={onChange} />
+                  )}
+                />
+                <ErrorMessage>{errors.title?.message}</ErrorMessage>
+              </div>
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Product Description</StyledTitle>
+              <Controller
+                control={control}
+                name="description"
+                render={({ field: { onChange } }) => (
+                  <TextInput inputSize="large" onChange={onChange} />
+                )}
+              />
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Profile Photo</StyledTitle>
+              <Controller
+                control={control}
+                name="image"
+                render={({ field: { onChange } }) => (
+                  <FileUpload
+                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                      handleFileUpload(event, onChange)
+                    }
+                  />
+                )}
+              />
+            </StyledBorder>
+            <StyledBorder>
+              <StyledTitle>Quantity</StyledTitle>
+              <Controller
+                control={control}
+                name="count"
+                render={({ field: { onChange } }) => (
+                  <TextInput inputSize="large" onChange={onChange} />
+                )}
+              />
+            </StyledBorder>
+          </FieldGroups>
+        </FormSection>
+        <SubmitButton
+          label="Submit"
+          className="submit-button"
+          type="submit"
+          size="medium"
+        />
+      </StyledForm>
+    </div>
   );
 };
 
