@@ -4,8 +4,8 @@
 import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
 import { columns } from "./Columns";
-import { Products } from "../../../API/api";
 import ColumnHeaderDropDown from "./ColumnHeaderDropDown/ColumnHeaderDropDown";
+import { Products } from "../../../data/DataType";
 
 export type ProductsTableProps = {
   data: Products[];
@@ -23,28 +23,21 @@ const Styledtd = styled.td`
 `;
 
 const ProductsTable: React.FC<ProductsTableProps> = ({ data }) => {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    visibleColumns,
-    rows,
-    prepareRow,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useSortBy
-  );
- 
+  const { getTableProps, getTableBodyProps, visibleColumns, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useSortBy
+    );
 
   return (
     <StyledTable {...getTableProps()}>
       <thead>
         <tr>
           {visibleColumns.map((column) => (
-            <ColumnHeaderDropDown
-              column={column}          />
+            <ColumnHeaderDropDown column={column} />
           ))}
         </tr>
       </thead>

@@ -1,7 +1,7 @@
 import { Column } from "react-table";
-import { Products } from "../../../API/api";
 import PriceCell from "./PriceCell";
 import { CellProps } from "react-table";
+import { Products } from "../../../data/DataType";
 
 //https://www.bacancytechnology.com/blog/react-table-tutorial
 
@@ -22,9 +22,9 @@ export const columns: Column<Products>[] = [
     Footer: "Image",
   },
   {
-    accessor: "price",
-    Header: "Price",
-    Footer: "Price",
+    accessor: "purchasePrice",
+    Header: "PurchasePrice",
+    Footer: "PurchasePrice",
     Cell: (cellprops) => {
       return <PriceCell cellprops={cellprops} />;
     },

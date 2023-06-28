@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import { ColumnInstance } from "react-table";
 import styled from "styled-components";
-import { Products } from "../../../../API/api";
 import DropDownItem from "../../../../components/DropDown/DropDownItem";
 import Popup from "../../../../components/Popup/Popup";
+import { Products } from "../../../../data/DataType";
 
 export type ColumnHeaderDropdownProps = {
   column: ColumnInstance<Products>;
@@ -20,10 +20,8 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
 }) => {
   const [openModal, setModalOpen] = useState(false);
   const [isSorting, setSorting] = useState(false);
-  const [
-    referenceElement,
-    setReferenceElement,
-  ] = useState<HTMLDivElement | null>(null);
+  const [referenceElement, setReferenceElement] =
+    useState<HTMLDivElement | null>(null);
 
   const openModalHandler = useCallback(() => {
     setModalOpen(true);
@@ -38,7 +36,7 @@ const ColumnHeaderDropDown: React.FC<ColumnHeaderDropdownProps> = ({
   );
 
   return (
-    <th {...column.getHeaderProps( column.getSortByToggleProps())}>
+    <th {...column.getHeaderProps(column.getSortByToggleProps())}>
       {column.render("Header")}
       <ColContentContainer
         ref={setReferenceElement}
