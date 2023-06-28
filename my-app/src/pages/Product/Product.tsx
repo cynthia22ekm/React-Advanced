@@ -10,12 +10,12 @@ import Button from "../../components/Button/Button";
 export interface ProductForm {
   id: number;
   title: string;
-  price: number;
+  purchasePrice: number;
   description: string;
   category: string;
   image: string;
-  rate: number;
-  count: number;
+  salesPrice: number;
+  quantity: number;
 }
 
 let categories = [
@@ -87,11 +87,11 @@ const Product: React.FC = () => {
     Data.push({
       id: data.id,
       title: data.title,
-      price: data.price,
+      purchasePrice: data.purchasePrice,
       category: data.category,
       description: data.description,
       image: data.image,
-      rating: { rate: data.rate, count: data.count },
+      rating: { salesPrice: data.salesPrice, quantity: data.quantity },
     });
     Data.map((eachData) => console.log("Image is " + eachData.category));
   };
@@ -126,39 +126,48 @@ const Product: React.FC = () => {
             </StyledBorder>
             <StyledBorder>
               <StyledTitle>Purchase Price</StyledTitle>
-              <Controller
-                control={control}
-                name="price"
-                render={({ field: { onChange } }) => (
-                  <TextInput inputSize="large" onChange={onChange} />
-                )}
-              />
+              <div>
+                <Controller
+                  control={control}
+                  name="purchasePrice"
+                  render={({ field: { onChange } }) => (
+                    <TextInput inputSize="large" onChange={onChange} />
+                  )}
+                />
+                <ErrorMessage>{errors.purchasePrice?.message}</ErrorMessage>
+              </div>
             </StyledBorder>
             <StyledBorder>
               <StyledTitle>Category</StyledTitle>
-              <Controller
-                control={control}
-                name="category"
-                render={({ field: { onChange } }) => (
-                  <SelectBox
-                    classNamePrefix="select"
-                    options={categories}
-                    onChange={(selectedItem: unknown) => {
-                      onChange((selectedItem as SelectedItemType).value);
-                    }}
-                  />
-                )}
-              />
+              <div>
+                <Controller
+                  control={control}
+                  name="category"
+                  render={({ field: { onChange } }) => (
+                    <SelectBox
+                      classNamePrefix="select"
+                      options={categories}
+                      onChange={(selectedItem: unknown) => {
+                        onChange((selectedItem as SelectedItemType).value);
+                      }}
+                    />
+                  )}
+                />
+                <ErrorMessage>{errors.category?.message}</ErrorMessage>
+              </div>
             </StyledBorder>
             <StyledBorder>
               <StyledTitle>Sales Price</StyledTitle>
-              <Controller
-                control={control}
-                name="rate"
-                render={({ field: { onChange } }) => (
-                  <TextInput inputSize="large" onChange={onChange} />
-                )}
-              />
+              <div>
+                <Controller
+                  control={control}
+                  name="salesPrice"
+                  render={({ field: { onChange } }) => (
+                    <TextInput inputSize="large" onChange={onChange} />
+                  )}
+                />
+                <ErrorMessage>{errors.salesPrice?.message}</ErrorMessage>
+              </div>
             </StyledBorder>
           </FieldGroups>
           <FieldGroups>
@@ -201,13 +210,16 @@ const Product: React.FC = () => {
             </StyledBorder>
             <StyledBorder>
               <StyledTitle>Quantity</StyledTitle>
-              <Controller
-                control={control}
-                name="count"
-                render={({ field: { onChange } }) => (
-                  <TextInput inputSize="large" onChange={onChange} />
-                )}
-              />
+              <div>
+                <Controller
+                  control={control}
+                  name="quantity"
+                  render={({ field: { onChange } }) => (
+                    <TextInput inputSize="large" onChange={onChange} />
+                  )}
+                />
+                <ErrorMessage>{errors.quantity?.message}</ErrorMessage>
+              </div>
             </StyledBorder>
           </FieldGroups>
         </FormSection>
