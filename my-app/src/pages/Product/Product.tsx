@@ -76,7 +76,7 @@ const Product: React.FC = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<ProductType> = (data) => {
+  const onSubmit = (data: ProductType) => {
     dispatch(addProducts(data));
   };
 
