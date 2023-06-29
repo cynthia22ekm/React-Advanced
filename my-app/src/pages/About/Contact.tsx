@@ -6,17 +6,17 @@ import { ContactType } from "../../data/DataType";
 
 const ErrorMessage = styled.div`
   color: red;
-  margin: 10px;
 `;
 
 const StyledBorder = styled.div`
-  padding: 30px;
-  margin: 30px;
+  padding: 10px;
+  margin: 10px;
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 10px;
 `;
 
@@ -38,24 +38,49 @@ const Contact: React.FC<ContactProps> = ({ onSubmit }) => {
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <StyledBorder>
           <TextInput
+            inputSize="large"
             placeholder="Enter FirstName"
-            {...register("firstName", { required: true })}
+            {...register("firstName", {
+              required: { value: true, message: "FirstName is Required" },
+            })}
           ></TextInput>
           <ErrorMessage>{errors.firstName?.message}</ErrorMessage>
         </StyledBorder>
-        <TextInput
-          placeholder="Enter LastName"
-          {...register("lastName")}
-        ></TextInput>
-        <TextInput placeholder="Enter Phone" {...register("phone")}></TextInput>
-        <TextInput placeholder="Enter Email" {...register("email")}></TextInput>
-        {errors.email && <ErrorMessage>Email is Required</ErrorMessage>}
-        <TextInput
-          placeholder="Enter Message"
-          {...register("message")}
-        ></TextInput>
-        {errors.message && <ErrorMessage>Message is Required</ErrorMessage>}
-        <Button label="Submit" type="submit" size="large"></Button>
+        <StyledBorder>
+          <TextInput
+            inputSize="large"
+            placeholder="Enter LastName"
+            {...register("lastName")}
+          ></TextInput>
+        </StyledBorder>
+        <StyledBorder>
+          <TextInput
+            inputSize="large"
+            placeholder="Enter Phone"
+            {...register("phone", {
+              required: { value: true, message: "Phone Number is Required." },
+            })}
+          ></TextInput>
+          <ErrorMessage>{errors.phone?.message}</ErrorMessage>
+        </StyledBorder>
+        <StyledBorder>
+          <TextInput
+            inputSize="large"
+            placeholder="Enter Email"
+            {...register("email", {
+              required: { value: true, message: "Email is Required" },
+            })}
+          ></TextInput>
+          <ErrorMessage>{errors.email?.message}</ErrorMessage>
+        </StyledBorder>
+        <StyledBorder>
+          <TextInput
+            inputSize="large"
+            placeholder="Enter Message"
+            {...register("message")}
+          ></TextInput>
+        </StyledBorder>
+        <Button label="Submit" type="submit" size="medium"></Button>
       </StyledForm>
     </div>
   );
