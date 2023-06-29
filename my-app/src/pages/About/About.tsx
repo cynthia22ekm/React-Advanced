@@ -2,10 +2,12 @@ import styled from "styled-components";
 import Navbar from "../../components/Navbar/Navbar";
 import { Contact } from "./Contact";
 import { ContactType } from "../../data/DataType";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../reduxSlice/UserSlice";
 
 const ContactSection = styled.div`
   margin-top: 5%;
-  margin-left: 25%;
+  margin-left: 30%;
   padding: 10px;
   width: 30%;
   height: 90%;
@@ -13,7 +15,11 @@ const ContactSection = styled.div`
 `;
 
 const About: React.FC = () => {
-  const onSubmitHandler = (data: ContactType) => console.log(data);
+  const dispatch = useDispatch();
+  const onSubmitHandler = (data: ContactType) => {
+    dispatch(addUser(data));
+  };
+
   return (
     <div>
       <Navbar
