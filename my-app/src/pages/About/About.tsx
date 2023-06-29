@@ -4,11 +4,11 @@ import { Contact } from "./Contact";
 import { ContactType } from "../../data/DataType";
 
 const ContactSection = styled.div`
-  margin-top: 20%;
-  margin-left: 30%;
+  margin-top: 5%;
+  margin-left: 25%;
   padding: 10px;
-  width: 500px;
-  height: 500px;
+  width: 30%;
+  height: 90%;
   background-color: lightblue;
 `;
 
