@@ -13,16 +13,14 @@ import Product from "./pages/Product/Product";
 function App() {
   return (
     <Provider store={ReduxStore}>
-      <Container>
-        <Routes>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/game" element={<Game />}></Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/store" element={<Store />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/product" element={<Product />}></Route>
-        </Routes>
-      </Container>
+      <Routes>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/game" element={<Game />}></Route>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/store" element={<Store />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/product" element={<Product />}></Route>
+      </Routes>
     </Provider>
   );
 }
