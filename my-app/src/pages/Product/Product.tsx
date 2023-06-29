@@ -6,8 +6,7 @@ import SelectBox, { SelectedItemType } from "../../components/Select/Select";
 import styled from "styled-components";
 import Button from "../../components/Button/Button";
 import Navbar from "../../components/Navbar/Navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store/ReduxStore";
+import { useDispatch } from "react-redux";
 import { addProducts } from "../../reduxSlice/ProductSlice";
 import { ProductType } from "../../data/DataType";
 
@@ -19,12 +18,13 @@ let categories = [
 ];
 
 const StyledForm = styled.form`
-  margin-left: 20px;
+  margin-left: 20%;
   margin-right: 20px;
   margin-top: 10%;
   padding: 20px;
   background-color: lightblue;
   border-radius: 10px;
+  width: 60%;
 `;
 
 const FormSection = styled.div`
@@ -56,9 +56,6 @@ const ErrorMessage = styled.div`
 
 const Product: React.FC = () => {
   const dispatch = useDispatch();
-  const productState = useSelector(
-    (state: RootState) => state.productData.products
-  );
   const {
     control,
     formState: { errors },
