@@ -1,11 +1,11 @@
 import { Column } from "react-table";
 import PriceCell from "./PriceCell";
 import { CellProps } from "react-table";
-import { ProductType } from "../../../data/DataType";
+import { APIProductType } from "../../../data/DataType";
 
 //https://www.bacancytechnology.com/blog/react-table-tutorial
 
-export const columns: Column<ProductType>[] = [
+export const columns: Column<APIProductType>[] = [
   {
     accessor: "category",
     Header: "Category",
@@ -22,7 +22,7 @@ export const columns: Column<ProductType>[] = [
     Footer: "Image",
   },
   {
-    accessor: "purchasePrice",
+    accessor: "price",
     Header: "PurchasePrice",
     Footer: "PurchasePrice",
     Cell: (cellprops) => {
@@ -33,5 +33,13 @@ export const columns: Column<ProductType>[] = [
     accessor: "title",
     Header: "Title",
     Footer: "Title",
+  },
+
+  {
+    accessor: (product) => {
+      return product.rating.rate;
+    },
+    Header: "SalesPrice",
+    Footer: "SalesPrice",
   },
 ];
