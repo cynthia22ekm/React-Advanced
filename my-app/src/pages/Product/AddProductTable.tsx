@@ -28,10 +28,6 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
       useSortBy
     );
 
-  //   console.log("Get table Props are " + getTableProps);
-  //   console.log("Get table body props are " + getTableBodyProps);
-  //   console.log("Visible columns are " + visibleColumns);
-  //   console.log("Rows are " + rows);
   return (
     <StyledTable {...getTableProps()}>
       <thead>
