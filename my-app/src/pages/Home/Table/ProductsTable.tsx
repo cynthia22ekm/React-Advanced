@@ -16,6 +16,7 @@ const StyledTable = styled.table`
   margin-left: 20px;
   margin-top: 50px;
   border-collapse: collapse;
+  width: 90%;
 `;
 
 const Styledtd = styled.td`
