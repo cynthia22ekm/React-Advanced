@@ -12,7 +12,7 @@ import { addProducts } from "../../reduxSlice/ProductSlice";
 const StyledForm = styled.form`
   margin-left: 20%;
   margin-right: 20px;
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 20px;
   background-color: lightblue;
   border-radius: 10px;
