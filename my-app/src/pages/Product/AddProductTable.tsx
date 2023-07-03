@@ -8,14 +8,17 @@ export type AddProductTableProps = {
 };
 
 const StyledTable = styled.table`
-  border: 1px solid black;
-  margin-left: 20px;
   margin-top: 50px;
-  border-collapse: collapse;
+  width: 90%;
+  margin-left: 5%;
+  border-radius: 20px;
+  background-color: lightblue;
+  box-sizing: content-box;
 `;
 
 const Styledtd = styled.td`
-  border: 1px solid black;
+  text-align: center;
+  padding: 10px;
 `;
 
 const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
