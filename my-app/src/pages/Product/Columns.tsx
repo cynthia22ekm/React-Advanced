@@ -1,50 +1,73 @@
 import { Column } from "react-table";
 import { ProductType } from "../../data/DataType";
+import styled from "styled-components";
+//id is required is accessor is added as a function
+const ColumnHeader = styled.div`
+  margin: 5px;
+`;
 
 export const columns: Column<ProductType>[] = [
   {
     accessor: "id",
-    Header: "Id",
+    Header: () => {
+      return <ColumnHeader>ID</ColumnHeader>;
+    },
     Footer: "Id",
   },
   {
     accessor: "title",
-    Header: "Title",
+    Header: () => {
+      return <ColumnHeader>Title</ColumnHeader>;
+    },
     Footer: "Title",
   },
   {
     accessor: "purchasePrice",
-    Header: "PurchasePrice",
+    Header: () => {
+      return <ColumnHeader>Purchase Price</ColumnHeader>;
+    },
     Footer: "PurchasePrice",
   },
   {
     accessor: "description",
-    Header: "Description",
+    Header: () => {
+      return <ColumnHeader>Description</ColumnHeader>;
+    },
     Footer: "Description",
   },
 
   {
     accessor: "category",
-    Header: "Category",
+    Header: () => {
+      return <ColumnHeader>Category</ColumnHeader>;
+    },
     Footer: "Category",
   },
   {
     accessor: "image",
-    Header: "Image",
+    Header: () => {
+      return <ColumnHeader>Image</ColumnHeader>;
+    },
     Footer: "Image",
   },
   {
-    accessor: (product) => {
-      return product.rating.salesPrice;
+    accessor: (row) => {
+      return row.rating.quantity;
     },
-    Header: "SalesPrice",
+    id: "salesprice",
+    Header: () => {
+      return <ColumnHeader>Sales Price</ColumnHeader>;
+    },
     Footer: "SalesPrice",
   },
   {
-    accessor: (product) => {
-      return product.rating.quantity;
+    accessor: (row) => {
+      return row.rating.quantity;
     },
-    Header: "Quantity",
+    id: "quantity",
+    Header: () => {
+      return <ColumnHeader>Quantity</ColumnHeader>;
+    },
     Footer: "Quantity",
   },
 ];
