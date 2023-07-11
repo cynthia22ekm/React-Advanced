@@ -3,7 +3,8 @@ import { ProductType } from "../../data/DataType";
 import { columns } from "./Columns";
 import styled from "styled-components";
 import GlobalFilter from "./GlobalFilter";
-import { ChangeEvent } from "react";
+import { ChangeEvent, useMemo } from "react";
+import ColumnFilter from "./ColumnFilter";
 
 export type AddProductTableProps = {
   data: ProductType[];
@@ -24,6 +25,13 @@ const Styledtd = styled.td`
 `;
 
 const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
+  const defaultColumn = useMemo(
+    () => ({
+      Filter: ColumnFilter,
+    }),
+    []
+  );
+
   const {
     visibleColumns,
     rows,
@@ -36,6 +44,7 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
     {
       columns,
       data,
+      defaultColumn,
     },
     useFilters,
     useGlobalFilter,
