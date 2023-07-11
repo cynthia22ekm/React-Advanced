@@ -1,4 +1,4 @@
-import { useGlobalFilter, useSortBy, useTable } from "react-table";
+import { useFilters, useGlobalFilter, useSortBy, useTable } from "react-table";
 import { ProductType } from "../../data/DataType";
 import { columns } from "./Columns";
 import styled from "styled-components";
@@ -37,6 +37,7 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
       columns,
       data,
     },
+    useFilters,
     useGlobalFilter,
     useSortBy
   );
@@ -57,7 +58,10 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
         <thead>
           <tr>
             {visibleColumns.map((column) => (
-              <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              <th {...column.getHeaderProps()}>
+                {column.render("Header")}
+                <div>{column.canFilter ? column.render("Filter") : null}</div>
+              </th>
             ))}
           </tr>
         </thead>
