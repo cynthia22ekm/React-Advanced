@@ -1,6 +1,5 @@
 import { Column } from "react-table";
 import PriceCell from "./PriceCell";
-import { CellProps } from "react-table";
 import { APIProductType } from "../../../data/DataType";
 
 //https://www.bacancytechnology.com/blog/react-table-tutorial
