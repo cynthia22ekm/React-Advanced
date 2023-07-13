@@ -1,6 +1,7 @@
 import { CellProps, Column } from "react-table";
 import { ProductType } from "../../data/DataType";
 import styled from "styled-components";
+import ColumnFilter from "./ColumnFilter";
 //id is required is accessor is added as a function
 //Reference: https://www.material-react-table.com/docs/guides/data-columns
 const ColumnHeader = styled.div`
@@ -26,6 +27,9 @@ export const columns: Column<ProductType>[] = [
     },
     Cell: (cellProps) => {
       return <StyledCell>{cellProps.cell.value}</StyledCell>;
+    },
+    Filter: (filterProps) => {
+      return <ColumnFilter column={filterProps.column}></ColumnFilter>;
     },
     Footer: "Id",
   },
