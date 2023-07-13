@@ -25,13 +25,6 @@ const Styledtd = styled.td`
 `;
 
 const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
-  const defaultColumn = useMemo(
-    () => ({
-      Filter: ColumnFilter,
-    }),
-    []
-  );
-
   const {
     visibleColumns,
     rows,
@@ -44,7 +37,6 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
     {
       columns,
       data,
-      defaultColumn,
     },
     useFilters,
     useGlobalFilter,
@@ -69,7 +61,7 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
             {visibleColumns.map((column) => (
               <th {...column.getHeaderProps()}>
                 {column.render("Header")}
-                <div>{column.canFilter ? column.render("Filter") : null}</div>
+                <div>{column.Filter ? column.render("Filter") : null}</div>
               </th>
             ))}
           </tr>
