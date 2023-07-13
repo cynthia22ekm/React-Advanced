@@ -25,6 +25,14 @@ const Styledtd = styled.td`
 `;
 
 const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
+  //Default column is an option to add filters for all columns. This code is kept for reference.
+  const defaultColumn = useMemo(
+    () => ({
+      Filter: ColumnFilter,
+    }),
+    []
+  );
+
   const {
     visibleColumns,
     rows,
