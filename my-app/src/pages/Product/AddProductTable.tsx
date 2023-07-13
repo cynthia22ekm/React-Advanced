@@ -67,8 +67,11 @@ const AddProductTable: React.FC<AddProductTableProps> = ({ data }) => {
         <thead>
           <tr>
             {visibleColumns.map((column) => (
-              <th {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                 {column.render("Header")}
+                <span>
+                  {column.canSort ? (column.isSortedDesc ? " 🔽" : "🔼") : ""}
+                </span>
                 <div>{column.Filter ? column.render("Filter") : null}</div>
               </th>
             ))}
