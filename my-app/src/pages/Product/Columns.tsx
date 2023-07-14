@@ -2,7 +2,7 @@ import { CellProps, Column } from "react-table";
 import { ProductType } from "../../data/DataType";
 import styled from "styled-components";
 import ColumnFilter from "./ColumnFilter";
-//id is required is accessor is added as a function
+//Accessor can be added as a function
 //Reference: https://www.material-react-table.com/docs/guides/data-columns
 const ColumnHeader = styled.div`
   margin: 10px;

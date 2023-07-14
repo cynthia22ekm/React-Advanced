@@ -6,6 +6,8 @@ import UserReducer from "../reduxSlice/UserSlice";
 import productsApi from "../API/api";
 
 //https://dev.to/ifeanyichima/what-is-createasyncthunk-in-redux--mhe
+//middleware is added for productsApi
+//Rootstate carries the entire state in store
 
 export const ReduxStore = configureStore({
   reducer: {

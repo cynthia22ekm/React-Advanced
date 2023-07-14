@@ -1,8 +1,7 @@
 import styled from "styled-components";
-
 export type ButtonSize = "small" | "medium" | "large";
 export type ButtonType = "submit" | "button" | "reset";
-
+//className is added to give styling for the Button component when used in another component like Product-Form
 export type ButtonProps = {
   label?: string;
   className?: string;
@@ -21,11 +20,9 @@ const StyledButton = styled.button<ButtonProps>((props) => {
 
 const Button: React.FC<ButtonProps> = ({ label, className, type, size }) => {
   return (
-    <div>
-      <StyledButton label={label} className={className} type={type} size={size}>
-        {label}
-      </StyledButton>
-    </div>
+    <StyledButton label={label} className={className} type={type} size={size}>
+      {label}
+    </StyledButton>
   );
 };
 

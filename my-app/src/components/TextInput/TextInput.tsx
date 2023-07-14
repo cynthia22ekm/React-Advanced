@@ -1,5 +1,6 @@
 import { ChangeEvent, ForwardedRef, forwardRef } from "react";
 import styled from "styled-components";
+//forward ref is used to pass the ref to the components inside a functional component
 
 type InputSize = "small" | "large";
 
