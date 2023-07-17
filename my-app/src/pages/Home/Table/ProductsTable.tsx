@@ -1,6 +1,7 @@
 //Reference taken from https://react-table-v7.tanstack.com/docs/api/useTable,//https://github.com/TanStack/table/discussions/2664
 //https://www.youtube.com/watch?v=CQ165vFGLVs&list=PLC3y8-rFHvwgWTSrDiwmUsl4ZvipOw9Cz&index=4
-
+//Reference: https://www.bacancytechnology.com/blog/react-table-tutorial
+//https://hygraph.com/blog/react-table
 import { useTable, useSortBy } from "react-table";
 import styled from "styled-components";
 import { columns } from "./Columns";
