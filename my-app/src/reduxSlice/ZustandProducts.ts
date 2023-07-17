@@ -1,3 +1,5 @@
+//Reference: https: //tsh.io/blog/zustand-react/
+//Reference: https: //dev.to/franklin030601/using-zustand-with-react-js-9di
 import { create } from "zustand";
 import { ProductType } from "../data/DataType";
 
