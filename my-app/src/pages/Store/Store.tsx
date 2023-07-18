@@ -3,10 +3,9 @@ import Navbar from "../../components/Navbar/Navbar";
 import { ProductType } from "../../data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import StoreItem from "./StoreItem/StoreItem";
-import { useSelector, useDispatch } from "react-redux";
-import { increment } from "../../reduxSlice/CounterSlice";
-import { RootState } from "../../store/ReduxStore";
+import { useDispatch } from "react-redux";
 import { useShoppingCartStore } from "../../reduxSlice/ZustandShoppingCart";
+import { useCounterStore } from "../../reduxSlice/ZustandCounter";
 
 export type CartItemType = {
   id: number;
@@ -19,15 +18,18 @@ const Store: React.FC = () => {
   const [itemCount, setItemCount] = useState(0);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [searchText, setSearchText] = useState("");
-  //Kept for reference
-  //  const shoppingCartItems = useSelector(
-  //(state: RootState) => state.shoppingcart.cartItems
-  //);
-  const shoppingCartItems = useShoppingCartStore((state) => state.cartItems);
-  const shoppingCartCount = useSelector(
-    (state: RootState) => state.counter.count
-  );
+  /* Kept for reference
+   const shoppingCartItems = useSelector(
+  (state: RootState) => state.shoppingcart.cartItems
+  ); */
 
+  //Kept for reference
+  /* const shoppingCartCount = useSelector(
+    (state: RootState) => state.counter.count
+  ); */
+  const shoppingCartItems = useShoppingCartStore((state) => state.cartItems);
+  const shoppingCartCount = useCounterStore((state) => state.count);
+  const incrementCount = useCounterStore((state) => state.incrementCount);
   const dispatch = useDispatch();
   const addToCart = useShoppingCartStore((state) => state.addToCart);
 
@@ -91,8 +93,9 @@ const Store: React.FC = () => {
       <StoreItem
         searchText={searchText}
         onAdd={(item: ProductType) => {
-          dispatch(increment());
+          // dispatch(increment());
           // dispatch(addToCart(item));
+          incrementCount();
           addToCart(item);
         }}
       ></StoreItem>
