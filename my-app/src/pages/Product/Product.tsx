@@ -3,11 +3,15 @@ import Navbar from "../../components/Navbar/Navbar";
 import AddProductTable from "./AddProductTable";
 import ProductForm from "./ProductForm";
 import { RootState } from "../../store/ReduxStore";
+import { useProductStore } from "../../reduxSlice/ZustandProducts";
 
 const Product: React.FC = () => {
+  //Will be kept for reference
   const productData = useSelector((state: RootState) => {
     return state.productData.products;
   });
+
+  const productList = useProductStore((state) => state.products);
   return (
     <div>
       <Navbar
@@ -20,7 +24,7 @@ const Product: React.FC = () => {
         itemCount={0}
       />
       <ProductForm></ProductForm>
-      <AddProductTable data={productData}></AddProductTable>
+      <AddProductTable data={productList}></AddProductTable>
     </div>
   );
 };

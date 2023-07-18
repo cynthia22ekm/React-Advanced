@@ -7,7 +7,7 @@ import { Controller, useForm } from "react-hook-form";
 import TextInput from "../../components/TextInput/TextInput";
 import SelectBox, { SelectedItemType } from "../../components/Select/Select";
 import FileUpload from "../../components/FileUpload/FileUpload";
-import { addProducts } from "../../reduxSlice/ProductSlice";
+import { useProductStore } from "../../reduxSlice/ZustandProducts";
 
 const StyledForm = styled.form`
   margin-left: 20%;
@@ -53,7 +53,8 @@ let categories = [
 ];
 
 const ProductForm: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //Kept for reference
+  const addProducts = useProductStore((state) => state.addProducts);
   const {
     control,
     formState: { errors },
@@ -75,7 +76,8 @@ const ProductForm: React.FC = () => {
   };
 
   const onSubmit = (data: ProductType) => {
-    dispatch(addProducts(data));
+    // dispatch(addProducts(data)); //Kept for reference
+    addProducts(data);
   };
 
   return (
