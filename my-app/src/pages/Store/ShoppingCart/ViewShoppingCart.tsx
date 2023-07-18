@@ -2,11 +2,8 @@ import styled from "styled-components";
 import Popup from "../../../components/Popup/Popup";
 import { CartItemType } from "../Store";
 import { useDispatch } from "react-redux";
-import {
-  addMoreQuantity,
-  removeFromCart,
-} from "../../../reduxSlice/ShoppingCarSlice";
 import { useCounterStore } from "../../../reduxSlice/ZustandCounter";
+import { useShoppingCartStore } from "../../../reduxSlice/ZustandShoppingCart";
 
 export type ViewShoppingCartProps = {
   cartItems: CartItemType[];
@@ -64,7 +61,11 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
   cartItems,
   cartButtonReference,
 }) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //Kept for referenec
+  const removeFromCart = useShoppingCartStore((state) => state.removeFromCart);
+  const addMoreQuantity = useShoppingCartStore(
+    (state) => state.addMoreQuantity
+  );
   const incrementCount = useCounterStore((state) => state.incrementCount);
   const decrementCount = useCounterStore((state) => state.decrementCount);
 
@@ -86,7 +87,8 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
               <ButtonBorder>
                 <StyledButton
                   onClick={() => {
-                    dispatch(removeFromCart(item));
+                    removeFromCart(item);
+                    // dispatch(removeFromCart(item));
                     decrementCount(); //Can also add dispatch(decrement())
                   }}
                 >
@@ -94,7 +96,8 @@ const ViewShoppingCart: React.FC<ViewShoppingCartProps> = ({
                 </StyledButton>
                 <StyledButton
                   onClick={() => {
-                    dispatch(addMoreQuantity(item));
+                    addMoreQuantity(item);
+                    //dispatch(addMoreQuantity(item));
                     incrementCount(); //Can also add dispatch(increment())
                   }}
                 >

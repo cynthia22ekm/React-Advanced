@@ -4,9 +4,9 @@ import { ProductType } from "../../data/DataType";
 import ShoppingCart from "./ShoppingCart/ShoppingCart";
 import StoreItem from "./StoreItem/StoreItem";
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart } from "../../reduxSlice/ShoppingCarSlice";
 import { increment } from "../../reduxSlice/CounterSlice";
 import { RootState } from "../../store/ReduxStore";
+import { useShoppingCartStore } from "../../reduxSlice/ZustandShoppingCart";
 
 export type CartItemType = {
   id: number;
@@ -19,14 +19,17 @@ const Store: React.FC = () => {
   const [itemCount, setItemCount] = useState(0);
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [searchText, setSearchText] = useState("");
-  const shoppingCartItems = useSelector(
-    (state: RootState) => state.shoppingcart.cartItems
-  );
+  //Kept for reference
+  //  const shoppingCartItems = useSelector(
+  //(state: RootState) => state.shoppingcart.cartItems
+  //);
+  const shoppingCartItems = useShoppingCartStore((state) => state.cartItems);
   const shoppingCartCount = useSelector(
     (state: RootState) => state.counter.count
   );
 
   const dispatch = useDispatch();
+  const addToCart = useShoppingCartStore((state) => state.addToCart);
 
   const addToCartHandler = useCallback(
     (item: ProductType) => {
@@ -89,7 +92,8 @@ const Store: React.FC = () => {
         searchText={searchText}
         onAdd={(item: ProductType) => {
           dispatch(increment());
-          dispatch(addToCart(item));
+          // dispatch(addToCart(item));
+          addToCart(item);
         }}
       ></StoreItem>
     </div>
